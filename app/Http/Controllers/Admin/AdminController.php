@@ -6,6 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Models\AdminsRole;
 use Illuminate\Http\Request;
 use App\Models\Admin;
+use App\Models\Category;
+use App\Models\Product;
+use App\Models\Brand;
+use App\Models\User;
 use Auth;
 use Validator;
 use Hash;
@@ -19,8 +23,11 @@ class AdminController extends Controller
     public function dashboard()
     {
         Session::put("page", 'dashboard');
-
-        return view('admin.dashboard');
+        $categoryCount = Category::get()->count();
+        $productsCount = Product::get()->count();
+        $brandsCount = Brand::get()->count();
+        $usersCount = User::get()->count();
+        return view('admin.dashboard', compact('categoryCount', 'productsCount', 'brandsCount', 'usersCount'));
     }
     public function updatePassword(Request $request)
     {

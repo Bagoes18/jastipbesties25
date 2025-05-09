@@ -34,15 +34,17 @@
       <div class="row">
         <div class="col-12 col-sm-6 col-md-3">
           <div class="info-box">
-            <span class="info-box-icon bg-info elevation-1"><i class="fas fa-cog"></i></span>
+            <span class="info-box-icon bg-info elevation-1"><i class="fas fa-tasks"></i></span>
 
-            <div class="info-box-content">
-              <span class="info-box-text">CPU Traffic</span>
-              <span class="info-box-number">
-                10
-                <small>%</small>
-              </span>
-            </div>
+            <a style="color: #fff" href="{{ url('admin/categories') }}">
+              <div class="info-box-content">
+                <span class="info-box-text">Kategori</span>
+                <span class="info-box-number">
+                  {{ $categoryCount }}
+                  {{-- <small>%</small> --}}
+                </span>
+              </div>
+            </a>
             <!-- /.info-box-content -->
           </div>
           <!-- /.info-box -->
@@ -50,12 +52,15 @@
         <!-- /.col -->
         <div class="col-12 col-sm-6 col-md-3">
           <div class="info-box mb-3">
-            <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-thumbs-up"></i></span>
 
-            <div class="info-box-content">
-              <span class="info-box-text">Likes</span>
-              <span class="info-box-number">41,410</span>
-            </div>
+            <span class="info-box-icon bg-info elevation-1"><i class="fas fa-tshirt"></i></span>
+            <a style="color: #fff" href="{{ url('admin/products') }}">
+
+              <div class="info-box-content">
+                <span class="info-box-text">Produk</span>
+                <span class="info-box-number">{{ $productsCount }}</span>
+              </div>
+            </a>
             <!-- /.info-box-content -->
           </div>
           <!-- /.info-box -->
@@ -67,12 +72,14 @@
 
         <div class="col-12 col-sm-6 col-md-3">
           <div class="info-box mb-3">
-            <span class="info-box-icon bg-success elevation-1"><i class="fas fa-shopping-cart"></i></span>
+            <span class="info-box-icon bg-info elevation-1"><i class="fas fa-tags"></i></span>
+            <a style="color: #fff" href="{{ url('admin/brands') }}">
 
-            <div class="info-box-content">
-              <span class="info-box-text">Sales</span>
-              <span class="info-box-number">760</span>
-            </div>
+              <div class="info-box-content">
+                <span class="info-box-text">Merek</span>
+                <span class="info-box-number">{{ $brandsCount }}</span>
+              </div>
+            </a>
             <!-- /.info-box-content -->
           </div>
           <!-- /.info-box -->
@@ -80,11 +87,11 @@
         <!-- /.col -->
         <div class="col-12 col-sm-6 col-md-3">
           <div class="info-box mb-3">
-            <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-users"></i></span>
+            <span class="info-box-icon bg-info elevation-1"><i class="fas fa-users"></i></span>
 
             <div class="info-box-content">
-              <span class="info-box-text">New Members</span>
-              <span class="info-box-number">2,000</span>
+              <span class="info-box-text">Pengguna</span>
+              <span class="info-box-number">{{ $usersCount }}</span>
             </div>
             <!-- /.info-box-content -->
           </div>
