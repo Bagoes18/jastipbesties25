@@ -76,14 +76,9 @@
                                             <option value="">Pilihan</option>
                                             <option @if (!empty($banner['type'])&&$banner['type']=="Slider" )
                                                 selected="" @endif value="Slider">Slider</option>
-                                            <option @if (!empty($banner['type'])&&$banner['type']=="Fix 1" ) selected=""
-                                                @endif value="Fix 1">Fix 1</option>
-                                            <option @if (!empty($banner['type'])&&$banner['type']=="Fix 2" ) selected=""
-                                                @endif value="Fix 2">Fix 2</option>
-                                            <option @if (!empty($banner['type'])&&$banner['type']=="Fix 3" ) selected=""
-                                                @endif value="Fix 3">Fix 3</option>
-                                            <option @if (!empty($banner['type'])&&$banner['type']=="Fix 4" ) selected=""
-                                                @endif value="Fix 4">Fix 4</option>
+                                            <option @if (!empty($banner['type'])&&$banner['type']=="Fix" ) selected=""
+                                                @endif value="Fix">Fix</option>
+
                                         </select>
 
                                     </div>
@@ -126,7 +121,7 @@
                                     <div class="form-group col-md-6">
                                         <label for="sort">Sortir Banner</label>
                                         <input type="number" class="form-control" id="sort" name="sort"
-                                            placeholder="Masukkan Link Banner" @if(!empty($banner['sort']))
+                                            placeholder="Masukkan Sortir Banner" @if(!empty($banner['sort']))
                                             value="{{ $banner['sort'] }}"> @else value="{{
                                         old('sort') }}"> @endif
                                     </div>

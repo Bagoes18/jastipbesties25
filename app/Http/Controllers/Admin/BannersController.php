@@ -81,32 +81,48 @@ class BannersController extends Controller
 
                 ];
 
+                $customMessages = [
+                    'type.required' => 'Tipe Banner harus di isi!',
+                    'banner_image.required' => 'Gambar Banner harus di isi!',
+
+                ];
+
+                $this->validate($request, $rules, $customMessages);
             }
 
 
 
-            $customMessages = [
-                'type.required' => 'Tipe Banner harus di isi!',
-                'banner_image.required' => 'Gambar Banner harus di isi!',
-
-            ];
-
-            $this->validate($request, $rules, $customMessages);
 
             //upload gambar Banner
             if ($request->hasFile("banner_image")) {
                 $image_tmp = $request->file("banner_image");
                 if ($image_tmp->isValid()) {
+                    // Hapus gambar lama jika ada dan file tersebut ada
+                    if (!empty($banner->image) && file_exists('front/images/banners/' . $banner->image)) {
+                        unlink('front/images/banners/' . $banner->image);
+                    }
+
                     $extension = $image_tmp->getClientOriginalExtension();
                     $imageName = rand(111, 99999) . '.' . $extension;
                     $image_path = 'front/images/banners/' . $imageName;
                     Image::make($image_tmp)->save($image_path);
                     $banner->image = $imageName;
-
                 }
-            } else {
-                $banner->image = '';
             }
+
+            // if ($request->hasFile("banner_image")) {
+            //     $image_tmp = $request->file("banner_image");
+            //     if ($image_tmp->isValid()) {
+            //         $extension = $image_tmp->getClientOriginalExtension();
+            //         $imageName = rand(111, 99999) . '.' . $extension;
+            //         $image_path = 'front/images/banners/' . $imageName;
+            //         Image::make($image_tmp)->save($image_path);
+            //         $banner->image = $imageName;
+
+            //     }
+            // } else {
+            //     $banner->image = '';
+            // }
 
             $banner->title = $data['title'];
             $banner->alt = $data['alt'];
