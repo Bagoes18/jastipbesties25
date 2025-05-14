@@ -501,6 +501,28 @@ ol {
 	z-index: 9;
 }
 
+.nested-category {
+	display: none;
+	padding-left: 15px;
+}
+
+.category-toggle {
+	cursor: pointer;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.toggle-arrow {
+	font-weight: bold;
+	margin-left: 10px;
+}
+
+.category-list li.open>.nested-category {
+	display: block;
+}
+
+
 /* Tampilkan dropdown anak saat hover */
 .header__menu ul li .dropdown li:hover>.dropdown {
 	opacity: 1;

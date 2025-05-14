@@ -19,16 +19,33 @@ class Category extends Model
         return $this->hasMany('App\Models\Category', 'parent_id')->where('status', 1);
     }
 
+    // public static function getCategories()
+    // {
+    //     $getCategories = Category::with([
+    //         'subcategories' => function ($query) {
+    //             $query->with('subcategories');
+    //         }
+    //     ])->where('parent_id', 0)->where('status', 1)->get()->toArray();
+    //     return $getCategories;
+
+    // }
     public static function getCategories()
     {
         $getCategories = Category::with([
             'subcategories' => function ($query) {
-                $query->with('subcategories');
+                $query->with('subcategories')->withCount('products');
             }
-        ])->where('parent_id', 0)->where('status', 1)->get()->toArray();
-        return $getCategories;
+        ])
+            ->withCount('products')
+            ->where('parent_id', 0)
+            ->where('status', 1)
+            ->get()
+            ->toArray();
 
+        return $getCategories;
     }
+
+
 
     // public static function getCategoryDetails($url)
     // {
@@ -96,5 +113,10 @@ class Category extends Model
 
         return $ids;
     }
+    public function products()
+    {
+        return $this->hasMany(Product::class, 'category_id')->where('status', 1);
+    }
+
 
 }

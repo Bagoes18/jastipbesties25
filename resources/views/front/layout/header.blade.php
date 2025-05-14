@@ -43,7 +43,7 @@ $categories = Category::getCategories();
                 <nav class="header__menu mobile-menu">
                     <ul>
                         <li class="active"><a href="/">Beranda</a></li>
-                        <li><a href="#">Unggulan</a></li>
+
                         <li><a href="#">Kategori</a>
                             <ul class="dropdown">
                                 @foreach ($categories as $category)
@@ -89,7 +89,7 @@ $categories = Category::getCategories();
                                 <li><a href="./blog-details.html">Blog Details</a></li>
                             </ul>
                         </li> --}}
-                        <li><a href="./blog.html">Blog</a></li>
+                        <li><a href="">Titipan</a></li>
 
                     </ul>
                 </nav>

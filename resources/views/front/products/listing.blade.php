@@ -8,11 +8,20 @@
             <div class="col-lg-12">
                 <div class="breadcrumb__text">
                     <h4>Toko</h4>
-                    <div class="breadcrumb__links">
+                    {{-- <div class="breadcrumb__links">
                         <a href="/">Beranda</a>
                         {!! $categoryDetails['breadcrumbs'] !!}
 
+                    </div> --}}
+                    <div class="breadcrumb__links">
+                        <a href="/">Beranda</a>
+                        @isset($categoryDetails)
+                        {!! $categoryDetails['breadcrumbs'] !!}
+                        @elseif(isset($brand))
+                        <span> / Brand / {{ $brand->name }}</span>
+                        @endif
                     </div>
+
                 </div>
             </div>
         </div>

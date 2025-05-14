@@ -1,5 +1,6 @@
 <?php
 
+
 use App\Http\Controllers\Front\IndexController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminController;
@@ -8,6 +9,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProductsController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\BannersController;
+use App\Http\Controllers\front\ProductController;
 use App\Models\Category;
 
 Route::get('/', function () {
@@ -22,6 +24,8 @@ Route::
             foreach ($catUrls as $key => $url) {
                 Route::get($url, 'ProductController@listing');
             }
+
+            Route::get('product/{id}', 'ProductController@detail');
         });
 
 Route::prefix('admin')->group(function () {

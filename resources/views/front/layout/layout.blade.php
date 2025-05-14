@@ -15,6 +15,7 @@
         rel="stylesheet">
 
     <!-- Css Styles -->
+
     <link rel="stylesheet" href="{{ asset('front/css/bootstrap.min.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('front/css/font-awesome.min.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('front/css/elegant-icons.css') }}" type="text/css">
@@ -23,6 +24,17 @@
     <link rel="stylesheet" href="{{ asset('front/css/owl.carousel.min.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('front/css/slicknav.min.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('front/css/style.css') }}" type="text/css">
+    <style>
+        .nested-category {
+            display: none;
+            margin-left: 15px;
+        }
+
+        .nested-category.show {
+            display: block;
+        }
+    </style>
+
 </head>
 
 <body>
@@ -90,6 +102,24 @@
     <script src="{{ asset('front/js/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('front/js/main.js') }}"></script>
     <script src="{{ asset('front/js/custom.js') }}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const toggles = document.querySelectorAll('.toggle-arrow');
+    
+            toggles.forEach(function(toggle) {
+                toggle.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const parent = toggle.closest('li');
+                    const nested = parent.querySelector('.nested-category');
+                    if (nested) {
+                        nested.classList.toggle('show');
+                    }
+                    toggle.textContent = toggle.textContent === '+' ? '-' : '+';
+                });
+            });
+        });
+    </script>
+
 </body>
 
 </html>
