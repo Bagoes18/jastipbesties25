@@ -4,21 +4,17 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration {
+return new class extends Migration
+{
     /**
      * Run the migrations.
      */
     public function up(): void
     {
-        Schema::create('banners', function (Blueprint $table) {
+        Schema::create('requests', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
             $table->string('image');
-            $table->string('title');
-            $table->string('type');
-            $table->string('link');
-            $table->string('alt');
-            $table->integer('sort');
-            $table->tinyInteger('status');
             $table->timestamps();
         });
     }
@@ -28,6 +24,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('banners');
+        Schema::dropIfExists('request');
     }
 };

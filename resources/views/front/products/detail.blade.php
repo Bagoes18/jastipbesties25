@@ -1,173 +1,181 @@
 @extends('front.layout.layout')
 @section('content')
-
-<!-- Shop Details Section Begin -->
-<section class="shop-details">
-    <div class="product__details__pic">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="product__details__breadcrumb">
-                        <a href="/">Beranda</a>
-                        <a href="">Toko</a>
-                        <span>{{ $productDetails['product_name'] }}</span>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-3 col-md-3">
-                    <ul class="nav nav-tabs" role="tablist">
-                        @foreach ($productDetails['images'] as $index => $image)
-                        <li class="nav-item">
-                            <a class="nav-link {{ $index === 0 ? 'active' : '' }}" data-toggle="tab"
-                                href="#tabs-{{ $index+1 }}" role="tab">
-                                <div class="product__thumb__pic set-bg"
-                                    data-setbg="{{ asset('front/images/products/small/' . $image['image']) }}"></div>
-                            </a>
-                        </li>
-                        @endforeach
-                        @if (!empty($productDetails['product_video']))
-                        <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="#tabs-video" role="tab">
-                                <div class="product__thumb__pic set-bg"
-                                    data-setbg="{{ asset('front/videos/products/' . pathinfo($productDetails['product_video'], PATHINFO_FILENAME) . '.jpg') }}">
-                                    <i class="fa fa-play"></i>
-                                </div>
-                            </a>
-                        </li>
-                        @endif
-
-                    </ul>
-                </div>
-                <div class="col-lg-6 col-md-9">
-                    <div class="tab-content">
-                        @foreach ($productDetails['images'] as $index => $image)
-                        <div class="tab-pane {{ $index === 0 ? 'active' : '' }}" id="tabs-{{ $index+1 }}"
-                            role="tabpanel">
-                            <div class="product__details__pic__item">
-                                <img src="{{ asset('front/images/products/large/' . $image['image']) }}" alt="">
-                            </div>
-                        </div>
-                        @endforeach
-                        @if (!empty($productDetails['product_video']))
-                        <div class="tab-pane" id="tabs-video" role="tabpanel">
-                            <div class="product__details__pic__item">
-                                <video width="100%" height="auto" controls>
-                                    <source
-                                        src="{{ asset('front/videos/products/' . $productDetails['product_video']) }}"
-                                        type="video/mp4">
-                                    {{-- Your browser does not support the video tag. --}}
-                                </video>
-                            </div>
-                        </div>
-                        @endif
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="product__details__content">
-        <div class="container">
-            <div class="row d-flex justify-content-center">
-                <div class="col-lg-8">
-                    <div class="product__details__text">
-                        <h4>{{ $productDetails['product_name'] }}</h4>
-                        <div class="rating">
-                            <span>{{ $productDetails['brand']['brand_name'] }}</span>
-                        </div>
-                        <h3>Rp. {{ number_format($productDetails['final_price'], 0, ',', '.') }}
-                            @if ($productDetails['discount_type'] != '')
-                            <span>Rp. {{ number_format($productDetails['product_price'], 0, ',', '.') }}</span>
-                            @endif
-                        </h3>
-                        <p>{{ $productDetails['description'] }}</p>
-                        <div class="product__details__option">
-                            <div class="product__details__option__size">
-                                <span>Size:</span>
-                                @foreach ($productDetails['attributes'] as $attribute)
-                                <label>
-                                    {{ $attribute['size'] }}
-                                    <input type="radio" name="size" value="{{ $attribute['size'] }}">
-                                </label>
-                                @endforeach
-                            </div>
-
-                        </div>
-                        <div class="product__details__cart__option">
-                            <div class="quantity">
-                                <div class="pro-qty">
-                                    <input type="text" value="1">
-                                </div>
-                            </div>
-                            <a href="#" class="primary-btn">+ Keranjang</a>
-                        </div>
-
-                        <div class="product__details__last__option">
-                            <h5><span>Detail Produk</span></h5>
-                            <img src="{{ asset('front/img/payment.png') }}" alt="">
-                            <ul>
-
-                                <li><span>Warna:</span> {{ $productDetails['product_color'] }}</li>
-                                <li><span>Bahan:</span> {{ $productDetails['fabric'] }}</li>
-                                <li><span>Pola:</span> {{ $productDetails['pattern'] }}</li>
-                                <li><span>Lengan:</span> {{ $productDetails['sleeve'] }}</li>
-                                <li><span>Ketetatan:</span> {{ $productDetails['fit'] }}</li>
-                                <li><span>Style:</span> {{ $productDetails['occasion'] }}</li>
-                                <li><span>Berat:</span> {{ $productDetails['product_weight'] }} kg</li>
-                            </ul>
+    <!-- Shop Details Section Begin -->
+    <section class="shop-details">
+        <div class="product__details__pic">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="product__details__breadcrumb">
+                            <a href="/">Beranda</a>
+                            <a href="">Toko</a>
+                            <span>{{ $productDetails['product_name'] }}</span>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="product__details__tab">
+                <div class="row">
+                    <div class="col-lg-3 col-md-3">
                         <ul class="nav nav-tabs" role="tablist">
-                            <li class="nav-item">
-                                <a class="nav-link active" data-toggle="tab" href="#tabs-5" role="tab">Deskripsi</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" data-toggle="tab" href="#tabs-6" role="tab">Informasi Tambahan</a>
-                            </li>
+                            @foreach ($productDetails['images'] as $index => $image)
+                                <li class="nav-item">
+                                    <a class="nav-link {{ $index === 0 ? 'active' : '' }}" data-toggle="tab"
+                                        href="#tabs-{{ $index + 1 }}" role="tab">
+                                        <div class="product__thumb__pic set-bg"
+                                            data-setbg="{{ asset('front/images/products/small/' . $image['image']) }}">
+                                        </div>
+                                    </a>
+                                </li>
+                            @endforeach
+                            @if (!empty($productDetails['product_video']))
+                                <li class="nav-item">
+                                    <a class="nav-link" data-toggle="tab" href="#tabs-video" role="tab">
+                                        <div class="product__thumb__pic set-bg"
+                                            data-setbg="{{ asset('front/videos/products/' . pathinfo($productDetails['product_video'], PATHINFO_FILENAME) . '.jpg') }}">
+                                            <i class="fa fa-play"></i>
+                                        </div>
+                                    </a>
+                                </li>
+                            @endif
 
                         </ul>
+                    </div>
+                    <div class="col-lg-6 col-md-9">
                         <div class="tab-content">
-                            <div class="tab-pane active" id="tabs-5" role="tabpanel">
-                                <div class="product__details__tab__content">
-
-                                    <div class="product__details__tab__content__item">
-                                        <h5>Deskripsi</h5>
-                                        <p>{{ $productDetails['description'] }}</p>
-
+                            @foreach ($productDetails['images'] as $index => $image)
+                                <div class="tab-pane {{ $index === 0 ? 'active' : '' }}" id="tabs-{{ $index + 1 }}"
+                                    role="tabpanel">
+                                    <div class="product__details__pic__item">
+                                        <img src="{{ asset('front/images/products/large/' . $image['image']) }}"
+                                            alt="">
                                     </div>
                                 </div>
-                            </div>
-                            <div class="tab-pane" id="tabs-6" role="tabpanel">
-                                <div class="product__details__tab__content">
-                                    <div class="product__details__tab__content__item">
-                                        <h5>Informasi Tambahan</h5>
-                                        <p>Wash Care: {{ $productDetails['wash_care'] }}</p>
-                                        <p>SKU: {{ $productDetails['product_code'] }}</p>
-
+                            @endforeach
+                            @if (!empty($productDetails['product_video']))
+                                <div class="tab-pane" id="tabs-video" role="tabpanel">
+                                    <div class="product__details__pic__item">
+                                        <video width="100%" height="auto" controls>
+                                            <source
+                                                src="{{ asset('front/videos/products/' . $productDetails['product_video']) }}"
+                                                type="video/mp4">
+                                            {{-- Your browser does not support the video tag. --}}
+                                        </video>
                                     </div>
-
                                 </div>
-                            </div>
+                            @endif
 
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
-<!-- Shop Details Section End -->
+        <div class="product__details__content">
+            <div class="container">
+                <div class="row d-flex justify-content-center">
+                    <div class="col-lg-8">
+                        <div class="product__details__text">
+                            <h4>{{ $productDetails['product_name'] }}</h4>
+                            <div class="rating">
+                                <span>{{ $productDetails['brand']['brand_name'] ?? '' }}</span>
+                            </div>
+                            <h3>Rp. {{ number_format($productDetails['final_price'], 0, ',', '.') }}
+                                @if ($productDetails['discount_type'] != '')
+                                    <span>Rp. {{ number_format($productDetails['product_price'], 0, ',', '.') }}</span>
+                                @endif
+                            </h3>
+                            <p>{{ $productDetails['description'] }}</p>
+                            <form action="{{ route('store.order') }}" method="post">
+                                @csrf
+                                <div class="product__details__option">
+                                    <div class="product__details__option__size">
+                                        <span>Size:</span>
+                                        @foreach ($productDetails['attributes'] as $attribute)
+                                            <label>
+                                                {{ $attribute['size'] }}
+                                                <input type="radio" name="atribute_id" value="{{ $attribute->id }}">
+                                            </label>
+                                        @endforeach
+                                    </div>
 
-<!-- Related Section Begin -->
-<section class="related spad">
-    <div class="container">
-        {{-- <div class="row">
+                                </div>
+
+                                <div class="product__details__cart__option">
+                                    <div class="quantity">
+                                        <div class="pro-qty">
+                                            <input type="text" name="qty" value="1">
+                                        </div>
+                                    </div>
+                                    <input type="hidden" name="product_id" value="{{ $productDetails['id'] }}">
+                                    <button type="submit" class="primary-btn">+ Keranjang</button>
+                                </div>
+                            </form>
+
+
+                            <div class="product__details__last__option">
+                                <h5><span>Detail Produk</span></h5>
+                                <img src="{{ asset('front/img/payment.png') }}" alt="">
+                                <ul>
+
+                                    <li><span>Warna:</span> {{ $productDetails['product_color'] }}</li>
+                                    <li><span>Bahan:</span> {{ $productDetails['fabric'] }}</li>
+                                    <li><span>Pola:</span> {{ $productDetails['pattern'] }}</li>
+                                    <li><span>Lengan:</span> {{ $productDetails['sleeve'] }}</li>
+                                    <li><span>Ketetatan:</span> {{ $productDetails['fit'] }}</li>
+                                    <li><span>Style:</span> {{ $productDetails['occasion'] }}</li>
+                                    <li><span>Berat:</span> {{ $productDetails['product_weight'] }} kg</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="product__details__tab">
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" data-toggle="tab" href="#tabs-5" role="tab">Deskripsi</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-toggle="tab" href="#tabs-6" role="tab">Informasi
+                                        Tambahan</a>
+                                </li>
+
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="tabs-5" role="tabpanel">
+                                    <div class="product__details__tab__content">
+
+                                        <div class="product__details__tab__content__item">
+                                            <h5>Deskripsi</h5>
+                                            <p>{{ $productDetails['description'] }}</p>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="tabs-6" role="tabpanel">
+                                    <div class="product__details__tab__content">
+                                        <div class="product__details__tab__content__item">
+                                            <h5>Informasi Tambahan</h5>
+                                            <p>Wash Care: {{ $productDetails['wash_care'] }}</p>
+                                            <p>SKU: {{ $productDetails['product_code'] }}</p>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Shop Details Section End -->
+
+    <!-- Related Section Begin -->
+    <section class="related spad">
+        <div class="container">
+            {{-- <div class="row">
             <div class="col-lg-12">
                 <h3 class="related-title">Produk yang Sama
                 </h3>
@@ -313,9 +321,7 @@
                 </div>
             </div>
         </div> --}}
-    </div>
-</section>
-<!-- Related Section End -->
-
-
+        </div>
+    </section>
+    <!-- Related Section End -->
 @endsection

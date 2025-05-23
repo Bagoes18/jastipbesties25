@@ -9,16 +9,47 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProductsController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\BannersController;
+use App\Http\Controllers\Admin\PesananController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\front\ProductController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PaymentController;
 use App\Models\Category;
 
-Route::get('/', function () {
-    return view('welcome');
+
+Route::get('/login', function () {
+    return view('auth.login');
 });
+
+Route::get('/register', function () {
+    return view('auth.register');
+});
+
+Route::get('/request', function () {
+    return view('front.products.request');
+});
+
+Route::get('/home', function () {
+    return redirect('/');
+});
+
+Route::get('/keranjang', [OrderController::class, 'index'])->name('index.order')->middleware('auth');
+Route::post('/checkout', [OrderController::class, 'checkout'])->name('checkout.order')->middleware('auth');
+Route::post('/orderstore', [OrderController::class, 'store'])->name('store.order')->middleware('auth');
+Route::get('/deleteorder/{id}', [OrderController::class, 'delete'])->name('delete.order');
+Route::get('/payment/{id}', [PaymentController::class, 'index'])->name('payment.order')->middleware('auth');
+Route::post('/payment/{id}', [PaymentController::class, 'store'])->name('payment.store')->middleware('auth');
+Route::post('/request', [ProductController::class, 'request'])->name('send.request')->middleware('auth');
+
+Route::get('/riwayat', [OrderController::class, 'riwayat'])->name('riwayat.order')->middleware('auth');
+
+Route::post('login', [AuthController::class, 'login'])->name('login')->middleware('guest');
+Route::post('register', [AuthController::class, 'register'])->name('register');
+Route::get('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
 
 Route::
         namespace('App\Http\Controllers\Front')->group(function () {
-            Route::get('/', [IndexController::class, 'index']);
+            Route::get('/', [IndexController::class, 'index'])->name('index');
 
             $catUrls = Category::select('url')->where('status', 1)->get()->pluck('url');
             foreach ($catUrls as $key => $url) {
@@ -77,5 +108,18 @@ Route::prefix('admin')->group(function () {
         Route::post('update-banner-status', [BannersController::class, 'updateBannerStatus']);
         Route::get('delete-banner/{id?}', [BannersController::class, 'deleteBanner']);
         Route::match(['get', 'post'], 'add-edit-banner/{id?}', [BannersController::class, 'addEditBanner']);
+        // Pesanan
+        Route::get('pesanan', [PesananController::class, 'pesanan']);
+        Route::get('payment/accept/{id}', [PesananController::class, 'acceptPayment'])->name('payment.accept');
+        Route::get('payment/reject/{id}', [PesananController::class, 'rejectPayment'])->name('payment.reject');
+        // Request
+        Route::get('request', [PesananController::class, 'request']);
+        //laporan
+        Route::get('laporan', [PesananController::class, 'laporan']);
+        Route::get('export', [PesananController::class, 'export'])->name('export');
+        // User
+        Route::get('user', [AdminController::class, 'users']);
+        Route::get('delete-user/{id?}', [AdminController::class, 'deleteUser'])->name('delete.user');
+        Route::post('update-user/{id?}', [AdminController::class, 'updateUser']);
     });
 });

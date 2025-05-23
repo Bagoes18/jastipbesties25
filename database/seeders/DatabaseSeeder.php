@@ -18,13 +18,16 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
-        // $this->call(AdminTableSeeder::class);
-        // $this->call(CategoryTableSeeder::class);
-        // $this->call(CmsPageTableSeeder::class);
-        // $this->call(ProductsTableSeeder::class);
+        $this->call(AdminTableSeeder::class);
+        $this->call(UserSeeder::class);
+        $this->call(CategoryTableSeeder::class);
+        $this->call(CmsPageTableSeeder::class);
+        $this->call(ProductsTableSeeder::class);
         $this->call(BannersTableSeeder::class);
-        // $this->call(BrandsTableSeeder::class);
-        // $this->call(ProductsAttributesTable::class);
-        // $this->call(ProductsImagesTableSeeder::class);
+        $this->call(BrandsTableSeeder::class);
+        $this->call(ProductsAttributesTable::class);
+        $this->call(ProductsImagesTableSeeder::class);
+        $this->call(PaymentSeeder::class);
+        $this->call(PaymentMethodSeeder::class);
     }
 }

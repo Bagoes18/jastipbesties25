@@ -1,4 +1,4 @@
-<?php 
+<?php
 use App\Models\Category;
 $categories = Category::getCategories();
 ?>
@@ -16,7 +16,11 @@ $categories = Category::getCategories();
                 <div class="col-lg-6 col-md-5">
                     <div class="header__top__right">
                         <div class="header__top__links">
-                            <a href="#">Sign in</a>
+                            @auth
+                            <a href="/logout">Logout</a>
+                            @else
+                            <a href="/login">Sign in</a>
+                            @endauth
                             <a href="#">FAQs</a>
                         </div>
                         <div class="header__top__hover">
@@ -90,6 +94,7 @@ $categories = Category::getCategories();
                             </ul>
                         </li> --}}
                         <li><a href="">Titipan</a></li>
+                        <li><a href="/request">Request Product</a></li>
 
                     </ul>
                 </nav>
@@ -98,8 +103,11 @@ $categories = Category::getCategories();
                 <div class="header__nav__option">
                     <a href="#" class="search-switch"><img src="{{ asset('front/img/icon/search.png') }}" alt=""></a>
                     <a href="#"><img src="{{ asset('front/img/icon/heart.png') }}" alt=""></a>
-                    <a href="#"><img src="{{ asset('front/img/icon/cart.png') }}" alt=""> <span>0</span></a>
-                    <div class="price">$0.00</div>
+                    <a href="/keranjang"><img src="{{ asset('front/img/icon/cart.png') }}" alt=""> </a>
+                    <a href="/riwayat"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="black" class="bi bi-wallet2" viewBox="0 0 16 16">
+                        <path d="M12.136.326A1.5 1.5 0 0 1 14 1.78V3h.5A1.5 1.5 0 0 1 16 4.5v9a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 13.5v-9a1.5 1.5 0 0 1 1.432-1.499zM5.562 3H13V1.78a.5.5 0 0 0-.621-.484zM1.5 4a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5z"/>
+                      </svg> </a>
+
                 </div>
             </div>
         </div>

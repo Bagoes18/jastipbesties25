@@ -41,7 +41,7 @@ class BrandsTableSeeder extends Seeder
                 "status" => 1,
             ],
             [
-                "id" => 3,
+                "id" => 3,  
                 "brand_name" => "H&M",
                 "brand_image" => "",
                 "brand_logo" => "",

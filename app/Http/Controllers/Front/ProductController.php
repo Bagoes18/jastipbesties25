@@ -8,9 +8,31 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Models\Category;
 use App\Models\Brand;
-
+use App\Models\RequestProduct;
 class ProductController extends Controller
 {
+    public function request(Request $request)
+    {
+        $request->validate([
+            'name' => 'required',
+        ]);
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $image->storeAs('public/RequestProduct', $imageName);
+
+        }
+
+        $requests = new RequestProduct();
+        $requests->name = $request->name;
+        if ($request->hasFile('image')) {
+            $requests->image = $imageName;
+        }
+        $requests->save();
+        return redirect()->back()->with('success', 'Request sent successfully');
+    }
+
     // public function listing()
     // {
     //     $categories = Category::getCategories();

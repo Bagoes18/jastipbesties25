@@ -1,0 +1,73 @@
+@extends('front.layout.layout')
+@section('content')
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <div class="breadcrumb-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="breadcrumb__text">
+                        <h4>Payment</h4>
+                        <div class="breadcrumb__links">
+                            <a href="/">Beranda</a>
+                            <span> / Payment</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row d-flex w-100 justify-content-center mt-5 mb-5">
+                <div class="card p-4 shadow-sm">
+                    <!-- Total Harga -->
+                    <div class="mb-3">
+                        <strong>Total Harga:</strong>
+                        <div class="form-control bg-light">
+                            Rp {{ number_format($total, 0, ',', '.') }}
+                        </div>
+                    </div>
+
+                    <!-- Metode Pembayaran -->
+                    <div class="mb-3">
+                        <strong>Metode Pembayaran:</strong>
+                        <div class="form-control bg-light">
+                            {{ $order->payment->name }}
+                        </div>
+                    </div>
+
+                    <!-- Nomor Rekening -->
+                    <div class="mb-3">
+                        <strong>Nomor Rekening Tujuan:</strong>
+                        <div class="form-control bg-light">
+                            {{ $order->payment->nomor }} a/n {{ $order->payment->atas_nama }}
+                        </div>
+                    </div>
+
+                    <!-- Catatan -->
+                    <div class="mb-3">
+                        <strong>Catatan:</strong>
+                        <div class="form-control bg-light">
+                            @if ($order->payment_proof)
+                            Bukti pembayaran sudah di kirim, silahkan menunggu konfirmasi.
+                            @else
+                            Silakan lakukan pembayaran dan unggah bukti transfer Anda.
+                            @endif
+                        </div>
+                    </div>
+
+                    <form action="" method="post" enctype="multipart/form-data">
+                        @csrf
+                        <div class="mb-3">
+                            <label for="bukti_transfer" class="form-label">Bukti Transfer</label>
+                            <input type="file" class="form-control" id="bukti_transfer" name="bukti_transfer" accept="image/*" required>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary mb-5">Bayar</button>
+                        <br>
+                        @if ($order->payment_proof)
+                            <img src="{{ asset('storage/PaymentProof/' . $order->payment_proof) }}" alt="Bukti Transfer" class="img-fluid">
+                        @endif
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection

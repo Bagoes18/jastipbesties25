@@ -10,12 +10,12 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\Brand;
 use App\Models\User;
-use Auth;
 use Validator;
-use Hash;
+use Illuminate\Support\Facades\Auth ;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Facades\Image;
-use Session;
 
 
 class AdminController extends Controller
@@ -331,4 +331,30 @@ class AdminController extends Controller
         return view("admin.subadmins.update_roles")->with(compact("title", "id", "subadminRoles"));
     }
 
+    public function users()
+    {
+        Session::put("page", 'user');
+        $user = User::all();
+        return view('admin.user', compact('user'));
+    }
+
+    public function deleteUser($id)
+    {
+        User::where("id", $id)->delete();
+        return redirect()->back()->with('success_message', 'User Berhasil Dihapus!');
+    }
+
+    public function updateUser(Request $request, $id)
+    {
+        $data = $request->all();
+        unset($data['_token']);
+        unset($data['user_id']);
+        if ($data['password'] != "") {
+            $data['password'] = bcrypt($data['password']);
+        } else {
+            unset($data['password']);
+        }
+        User::where('id', $id)->update($data);
+        return redirect()->back()->with('success_message', 'User Berhasil Diperbarui!');
+    }
 }
