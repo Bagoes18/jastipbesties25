@@ -2,7 +2,7 @@
 @section('content')
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap JS (Popper included) -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
     <div class="breadcrumb-section">
         <div class="container">
@@ -38,7 +38,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($orders as $order )
+                            @foreach ($orders as $order)
                                 @php
                                     $totalPerItem =
                                         ($order->atribute->price ?? $order->product->final_price) * $order->qty;
@@ -83,12 +83,12 @@
 
                                 <div class="modal-body">
                                     @foreach ($payment as $item)
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="payment" id="payment"
-                                            value="{{ $item->id }}" required>
-                                        <label class="form-check-label" for="payment">{{ $item->name }}</label>
-                                    </div>
-                                @endforeach
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="payment" id="payment"
+                                                value="{{ $item->id }}" required>
+                                            <label class="form-check-label" for="payment">{{ $item->name }}</label>
+                                        </div>
+                                    @endforeach
                                 </div>
 
                                 <div class="modal-footer">

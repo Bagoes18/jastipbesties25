@@ -28,12 +28,16 @@ class AuthController extends Controller
         $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:users',
-            'password' => 'required'
+            'password' => 'required',
+            'telepon' => 'required',
+            'alamat' => 'required'
         ]);
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => bcrypt($request->password)
+            'password' => bcrypt($request->password),
+            'telepon' => $request->telepon,
+            'alamat' => $request->alamat,
         ]);
         $token = $user->createToken('token')->plainTextToken;
         return redirect('/login')->with('success_message', 'Berhasil mendaftar!');

@@ -121,5 +121,6 @@ Route::prefix('admin')->group(function () {
         Route::get('user', [AdminController::class, 'users']);
         Route::get('delete-user/{id?}', [AdminController::class, 'deleteUser'])->name('delete.user');
         Route::post('update-user/{id?}', [AdminController::class, 'updateUser']);
+        Route::post('add-user', [AdminController::class, 'addUser']);
     });
 });

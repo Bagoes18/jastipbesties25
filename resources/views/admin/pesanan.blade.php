@@ -51,6 +51,7 @@
                                     <thead>
                                         <tr>
                                             <th scope="col">Checkout ID</th>
+                                            <th scope="col">User</th>
                                             <th scope="col">Jumlah Produk</th>
                                             <th scope="col">List Produk</th>
                                             <th scope="col">Total</th>
@@ -62,6 +63,7 @@
                                         @foreach ($orderSummaries as $sum)
                                             <tr>
                                                 <td>{{ $sum['orders'][0]->checkout_id }}</td>
+                                                <td>{{ $sum['orders'][0]->user->name }}</td>
                                                 <td>{{ $sum['count'] }}</td>
                                                 <td>
                                                     <ul>

@@ -357,4 +357,24 @@ class AdminController extends Controller
         User::where('id', $id)->update($data);
         return redirect()->back()->with('success_message', 'User Berhasil Diperbarui!');
     }
+
+    public function addUser(Request $request)
+    {
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:users',
+            'password' => 'required',
+            'telepon' => 'required',
+            'alamat' => 'required'
+        ]);
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => bcrypt($request->password),
+            'telepon' => $request->telepon,
+            'alamat' => $request->alamat,
+        ]);
+        $token = $user->createToken('token')->plainTextToken;
+        return redirect()->back()->with('success_message', 'User Berhasil Ditambahkan!');
+    }
 }

@@ -19,9 +19,10 @@ class PaymentController extends Controller
         $total = Order::where('checkout_id', $id)->sum('total');
         $order = Order::where('checkout_id', $id)->with('payment')->first();
 
-        if (!$order) {
+        if (!$order || !$order->payment) {
             return redirect()->back()->with('error', 'Payment not found');
         }
+        
         return view('front.payment', compact('total', 'order'));
     }
 
