@@ -47,6 +47,8 @@
                         <div class="form-control bg-light">
                             @if ($order->status == 'Diterima')
                                 Pembayaran telah diterima, terimakasih telah menggunakan layanan kami.
+                            @elseif ($order->status == 'Ditolak')
+                                Pembayaran ditolak oleh admin, silahkan lakukan pemesanan kembali.
                             @elseif ($order->payment_proof)
                                 Bukti pembayaran sudah dikirim, silahkan menunggu konfirmasi.
                             @else
@@ -63,7 +65,7 @@
                                 accept="image/*" required>
                         </div>
 
-                        @if ($order->status != 'Diterima')
+                        @if ($order->status != 'Diterima' || $order->status != 'Ditolak')
                             <button type="submit" class="btn btn-primary mb-5">Bayar</button>
                         @endif
                         <br>
