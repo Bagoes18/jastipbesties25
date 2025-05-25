@@ -45,10 +45,12 @@
                     <div class="mb-3">
                         <strong>Catatan:</strong>
                         <div class="form-control bg-light">
-                            @if ($order->payment_proof)
-                            Bukti pembayaran sudah di kirim, silahkan menunggu konfirmasi.
+                            @if ($order->status == 'Diterima')
+                                Pembayaran telah diterima, terimakasih telah menggunakan layanan kami.
+                            @elseif ($order->payment_proof)
+                                Bukti pembayaran sudah dikirim, silahkan menunggu konfirmasi.
                             @else
-                            Silakan lakukan pembayaran dan unggah bukti transfer Anda.
+                                Silakan lakukan pembayaran dan unggah bukti transfer Anda.
                             @endif
                         </div>
                     </div>
@@ -57,13 +59,17 @@
                         @csrf
                         <div class="mb-3">
                             <label for="bukti_transfer" class="form-label">Bukti Transfer</label>
-                            <input type="file" class="form-control" id="bukti_transfer" name="bukti_transfer" accept="image/*" required>
+                            <input type="file" class="form-control" id="bukti_transfer" name="bukti_transfer"
+                                accept="image/*" required>
                         </div>
 
-                        <button type="submit" class="btn btn-primary mb-5">Bayar</button>
+                        @if ($order->status != 'Diterima')
+                            <button type="submit" class="btn btn-primary mb-5">Bayar</button>
+                        @endif
                         <br>
                         @if ($order->payment_proof)
-                            <img src="{{ asset('storage/PaymentProof/' . $order->payment_proof) }}" alt="Bukti Transfer" class="img-fluid">
+                            <img src="{{ asset('storage/PaymentProof/' . $order->payment_proof) }}" alt="Bukti Transfer"
+                                class="img-fluid">
                         @endif
                     </form>
                 </div>
