@@ -14,16 +14,17 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\front\ProductController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\ProfileController;
 use App\Models\Category;
 
 
 Route::get('/login', function () {
     return view('auth.login');
-});
+})->middleware('guest');
 
 Route::get('/register', function () {
     return view('auth.register');
-});
+})->middleware('guest');
 
 Route::get('/request', function () {
     return view('front.products.request');
@@ -37,15 +38,19 @@ Route::get('/keranjang', [OrderController::class, 'index'])->name('index.order')
 Route::post('/checkout', [OrderController::class, 'checkout'])->name('checkout.order')->middleware('auth');
 Route::post('/orderstore', [OrderController::class, 'store'])->name('store.order')->middleware('auth');
 Route::get('/deleteorder/{id}', [OrderController::class, 'delete'])->name('delete.order');
+Route::get('/riwayat', [OrderController::class, 'riwayat'])->name('riwayat.order')->middleware('auth');
+
 Route::get('/payment/{id}', [PaymentController::class, 'index'])->name('payment.order')->middleware('auth');
 Route::post('/payment/{id}', [PaymentController::class, 'store'])->name('payment.store')->middleware('auth');
-Route::post('/request', [ProductController::class, 'request'])->name('send.request')->middleware('auth');
 
-Route::get('/riwayat', [OrderController::class, 'riwayat'])->name('riwayat.order')->middleware('auth');
+Route::post('/request', [ProductController::class, 'request'])->name('send.request')->middleware('auth');
 
 Route::post('login', [AuthController::class, 'login'])->name('login')->middleware('guest');
 Route::post('register', [AuthController::class, 'register'])->name('register');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
+
+Route::get('/profile', [ProfileController::class, 'index'])->name('profile')->middleware('auth');
+Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update')->middleware('auth');
 
 Route::
         namespace('App\Http\Controllers\Front')->group(function () {
