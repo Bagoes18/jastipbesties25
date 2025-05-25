@@ -11,7 +11,7 @@ use App\Models\Product;
 use App\Models\Brand;
 use App\Models\User;
 use Validator;
-use Illuminate\Support\Facades\Auth ;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Intervention\Image\ImageManager;
