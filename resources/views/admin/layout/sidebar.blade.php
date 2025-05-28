@@ -110,8 +110,6 @@
                         </li>
                     </ul>
                 </li>
-                @endif
-
                 @if (Session::get('page') == 'user')
                 @php $active='active' @endphp
                 @else
@@ -120,12 +118,15 @@
 
                 <li class="nav-item">
                     <a href="{{ url('admin/user') }}" class="nav-link {{ $active }}">
-                        <i class="nav-icon fa-solid fa-user"></i>
+                        <i class="nav-icon fas fa-user"></i>
                         <p>
                             User
                         </p>
                     </a>
                 </li>
+                @endif
+
+
 
                 @if (Session::get('page') == 'cms-pages' || Session::get('page') == 'banners')
                 @php $active='active' @endphp
@@ -225,7 +226,7 @@
                     </ul>
                 </li>
 
-                @if (Auth::guard('admin')->user()->type == 'admin')
+
                 @if (Session::get('page') == 'pesanan' ||
                 Session::get('page') == 'request' ||
                 Session::get('page') == 'laporan')
@@ -237,7 +238,7 @@
                 @endif
                 <li class="nav-item {{ $open }}">
                     <a href="#" class="nav-link {{ $active }}">
-                        <i class="nav-icon far fas fa-cart-shopping"></i>
+                        <i class="nav-icon fas fa-shopping-cart"></i>
                         <p>
                             Order
                             <i class="right fas fa-angle-left"></i>
@@ -281,7 +282,7 @@
                         </li>
                     </ul>
                 </li>
-                @endif
+
 
 
             </ul>

@@ -2,6 +2,7 @@
 
 
 use App\Http\Controllers\Front\IndexController;
+use App\Models\CmsPage;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\CmsController;
@@ -52,6 +53,10 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('logout')->middle
 Route::get('/profile', [ProfileController::class, 'index'])->name('profile')->middleware('auth');
 Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update')->middleware('auth');
 
+Route::get('/invoice/{checkout_id}/{user_id}', [OrderController::class, 'printInvoice'])->name('orders.invoice');
+Route::get('/page/{url}', [IndexController::class, 'cmspage'])->name('cms.page');
+
+
 Route::
         namespace('App\Http\Controllers\Front')->group(function () {
             Route::get('/', [IndexController::class, 'index'])->name('index');
@@ -61,7 +66,13 @@ Route::
                 Route::get($url, 'ProductController@listing');
             }
 
+            // $cmsUrls = CmsPage::select('url')->where('status', 1)->get()->pluck('url');
+            // foreach ($cmsUrls as $key => $url) {
+            //     Route::get($url, 'IndexController@cmspages');
+            // }
+        
             Route::get('product/{id}', 'ProductController@detail');
+
         });
 
 Route::prefix('admin')->group(function () {

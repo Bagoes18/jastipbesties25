@@ -57,8 +57,8 @@
                             <table class="table table-bordered table-striped bg-transparent">
                                 <thead>
                                     <tr>
-                                        <th scope="col">name</th>
-                                        <th scope="col">image</th>
+                                        <th scope="col">Nama</th>
+                                        <th scope="col">Gambar</th>
                                     </tr>
                                 </thead>
                                 <tbody>

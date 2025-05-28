@@ -84,12 +84,16 @@
                                         <td>Rp {{ number_format($sum['total'], 0, ',', '.') }}</td>
                                         <td>{{ $sum['orders'][0]->status }}</td>
                                         <td>
+                                            @if ($pesananModul['edit_access']==1 || $pesananModul['full_access']==1)
                                             <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                                 data-bs-target="#bukti{{ $loop->index }}">Bukti</button>
                                             <a href="{{ route('payment.accept', $sum['orders'][0]->checkout_id) }}"
                                                 class="btn btn-success">Terima</a>
                                             <a href="{{ route('payment.reject', $sum['orders'][0]->checkout_id) }}"
                                                 class="btn btn-danger">Tolak</a>
+                                            @else
+                                            -
+                                            @endif
                                         </td>
                                     </tr>
                                     <div class="modal fade" id="bukti{{ $loop->index }}" tabindex="-1"

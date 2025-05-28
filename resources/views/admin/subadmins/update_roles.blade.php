@@ -215,6 +215,93 @@
                                 @endphp
                                 @endif
                                 @endif
+                                @if ($role['module']=="pesanan")
+                                @if ($role['view_access']==1)
+                                @php
+                                $viewPesanan = "checked"
+                                @endphp
+                                @else
+                                @php
+                                $viewPesanan = ""
+                                @endphp
+                                @endif
+                                @if ($role['edit_access']==1)
+                                @php
+                                $editPesanan = "checked"
+                                @endphp
+                                @else
+                                @php
+                                $editPesanan = ""
+                                @endphp
+                                @endif
+                                @if ($role['full_access']==1)
+                                @php
+                                $fullPesanan = "checked"
+                                @endphp
+                                @else
+                                @php
+                                $fullPesanan = ""
+                                @endphp
+                                @endif
+                                @endif
+                                @if ($role['module']=="request")
+                                @if ($role['view_access']==1)
+                                @php
+                                $viewRequest = "checked"
+                                @endphp
+                                @else
+                                @php
+                                $viewRequest = ""
+                                @endphp
+                                @endif
+                                @if ($role['edit_access']==1)
+                                @php
+                                $editRequest = "checked"
+                                @endphp
+                                @else
+                                @php
+                                $editRequest = ""
+                                @endphp
+                                @endif
+                                @if ($role['full_access']==1)
+                                @php
+                                $fullRequest = "checked"
+                                @endphp
+                                @else
+                                @php
+                                $fullRequest = ""
+                                @endphp
+                                @endif
+                                @endif
+                                @if ($role['module']=="laporan")
+                                @if ($role['view_access']==1)
+                                @php
+                                $viewLaporan = "checked"
+                                @endphp
+                                @else
+                                @php
+                                $viewLaporan = ""
+                                @endphp
+                                @endif
+                                @if ($role['edit_access']==1)
+                                @php
+                                $editLaporan = "checked"
+                                @endphp
+                                @else
+                                @php
+                                $editLaporan = ""
+                                @endphp
+                                @endif
+                                @if ($role['full_access']==1)
+                                @php
+                                $fullLaporan = "checked"
+                                @endphp
+                                @else
+                                @php
+                                $fullLaporan = ""
+                                @endphp
+                                @endif
+                                @endif
                                 @endforeach
                                 @endif
                                 <div class="card-body">
@@ -313,6 +400,33 @@
                                                         $editBanners ?? '' }}></td>
                                                 <td><input type="checkbox" value="1" name="banners[full]" {{
                                                         $fullBanners ?? '' }}></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Pesanan</td>
+                                                <td><input type="checkbox" value="1" name="pesanan[view]" {{
+                                                        $viewPesanan ?? '' }}></td>
+                                                <td><input type="checkbox" value="1" name="pesanan[edit]" {{
+                                                        $editPesanan ?? '' }}></td>
+                                                <td><input type="checkbox" value="1" name="pesanan[full]" {{
+                                                        $fullPesanan ?? '' }}></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Request</td>
+                                                <td><input type="checkbox" value="1" name="request[view]" {{
+                                                        $viewRequest ?? '' }}></td>
+                                                <td><input type="checkbox" value="1" name="request[edit]" {{
+                                                        $editRequest ?? '' }}></td>
+                                                <td><input type="checkbox" value="1" name="request[full]" {{
+                                                        $fullRequest ?? '' }}></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Laporan</td>
+                                                <td><input type="checkbox" value="1" name="laporan[view]" {{
+                                                        $viewLaporan ?? '' }}></td>
+                                                <td><input type="checkbox" value="1" name="laporan[edit]" {{
+                                                        $editLaporan ?? '' }}></td>
+                                                <td><input type="checkbox" value="1" name="laporan[full]" {{
+                                                        $fullLaporan ?? '' }}></td>
                                             </tr>
                                         </tbody>
                                     </table>

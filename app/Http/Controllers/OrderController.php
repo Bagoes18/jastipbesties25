@@ -8,6 +8,7 @@ use App\Models\PaymentMethod;
 use App\Models\Product;
 use App\Models\ProductsAttribute;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 use function PHPSTORM_META\map;
 
@@ -27,7 +28,9 @@ class OrderController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create() {}
+    public function create()
+    {
+    }
 
     public function checkout(Request $request)
     {
@@ -81,6 +84,8 @@ class OrderController extends Controller
             ->with('payment')
             ->get();
 
+        $onproccess = Order::where('status', 'Diterima');
+
         // Group by checkout_id
         $groupedOrders = $orders->groupBy('checkout_id');
 
@@ -121,4 +126,28 @@ class OrderController extends Controller
     {
         //
     }
+
+    public function printInvoice($checkout_id, $user_id)
+    {
+        $orders = Order::with(['user', 'product', 'atribute'])
+            ->where('checkout_id', $checkout_id)
+            ->where('user_id', $user_id)
+            ->get();
+
+        if ($orders->isEmpty()) {
+            abort(404, 'Order not found');
+        }
+
+        // Karena $orders adalah koleksi (banyak), kamu harus sesuaikan view dan looping-nya
+
+        $user = $orders->first()->user; // data user ambil dari order pertama
+
+        $pdf = Pdf::loadView('front.orders.invoice', compact('orders', 'user'))
+            ->setPaper('A5', 'portrait');
+
+        return $pdf->download('invoice-order-' . $checkout_id . '.pdf');
+    }
+
+
+
 }

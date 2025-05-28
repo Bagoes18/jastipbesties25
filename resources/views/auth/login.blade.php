@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Jatip Admin Panel | Log in</title>
+  <title>JastipBesties | Log in</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet"
@@ -71,9 +71,6 @@
             </div>
           </div>
           <div class="row">
-            <a href="/register">Register</a>
-          </div>
-          <div class="row">
             <div class="col-8">
               <div class="icheck-primary">
                 <input type="checkbox" id="remember" name="remember" @if (isset($_COOKIE ["email"])) checked="" @endif>
@@ -83,8 +80,14 @@
               </div>
             </div>
             <!-- /.col -->
+
             <div class="col-4">
+              {{-- <a href="/register">Register</a> --}}
               <button type="submit" class="btn btn-primary btn-block">Masuk</button>
+            </div>
+            <div class="col-4">
+              <a href="/register">Register</a>
+              {{-- <button type="submit" class="btn btn-primary btn-block">Masuk</button> --}}
             </div>
             <!-- /.col -->
           </div>

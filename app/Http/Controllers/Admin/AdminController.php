@@ -88,7 +88,7 @@ class AdminController extends Controller
                 return redirect("admin/dashboard");
 
             } else {
-                return redirect()->back()->with("error_message", "Salah Email atau Password");
+                return redirect("admin/login")->with("error_message", "Salah Email atau Password");
             }
         }
 
