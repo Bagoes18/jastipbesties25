@@ -89,6 +89,7 @@
                                                 data-bs-target="#bukti{{ $loop->index }}">Bukti</button>
                                             <a href="{{ route('payment.accept', $sum['orders'][0]->checkout_id) }}"
                                                 class="btn btn-success">Terima</a>
+
                                             <a href="{{ route('payment.reject', $sum['orders'][0]->checkout_id) }}"
                                                 class="btn btn-danger">Tolak</a>
                                             @else

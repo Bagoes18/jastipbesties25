@@ -45,7 +45,9 @@ $cmspages = CmsPage::where('status', 1)->get()->toArray();
                             <a href="{{ route('cms.page', $cms['url']) }}">{{ $cms['title'] }}</a>
                         </li>
                         @endforeach
-
+                        <li>
+                            <a href="{{ url('admin/login') }}">Login Admin</a>
+                        </li>
                     </ul>
 
                 </div>

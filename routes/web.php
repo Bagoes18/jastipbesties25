@@ -57,6 +57,8 @@ Route::get('/invoice/{checkout_id}/{user_id}', [OrderController::class, 'printIn
 Route::get('/page/{url}', [IndexController::class, 'cmspage'])->name('cms.page');
 
 
+
+
 Route::
         namespace('App\Http\Controllers\Front')->group(function () {
             Route::get('/', [IndexController::class, 'index'])->name('index');
@@ -72,7 +74,8 @@ Route::
             // }
         
             Route::get('product/{id}', 'ProductController@detail');
-
+            //search
+            Route::get('search-products', 'ProductController@listing');
         });
 
 Route::prefix('admin')->group(function () {

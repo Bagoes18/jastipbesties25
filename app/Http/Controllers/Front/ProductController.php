@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Route;
 use App\Models\Category;
 use App\Models\Brand;
 use App\Models\RequestProduct;
+use PhpParser\Builder\Function_;
 class ProductController extends Controller
 {
     public function request(Request $request)
@@ -122,6 +123,45 @@ class ProductController extends Controller
             $categoryProducts = $categoryProducts->paginate(6);
 
             return view('front.products.listing', compact('categoryDetails', 'brands', 'categoryProducts', 'url', 'categories'));
+        } else if (isset($_GET['query']) && !empty($_GET['query'])) {
+            $search = $_GET['query'];
+
+            $categoryDetails = [
+                'category_details' => [
+                    'category_name' => 'Hasil pencarian: ' . $search,
+                    'description' => '',
+                    'image' => '',
+                ],
+                'breadcrumbs' => '<li class="active">Pencarian: ' . $search . '</li>',
+                'catIds' => [],
+            ];
+
+            $categoryProducts = Product::with(['brand', 'images'])
+                ->where(function ($query) use ($search) {
+                    $query->where('product_name', 'like', '%' . $search . '%')
+                        ->orWhere('product_code', 'like', '%' . $search . '%')
+                        ->orWhere('product_color', 'like', '%' . $search . '%')
+                        ->orWhere('description', 'like', '%' . $search . '%');
+                })
+                ->where('status', 1)
+                ->paginate(9);
+
+
+            $categories = Category::getCategories();
+            $brands = Brand::all();
+
+            // $url = Route::getFacadeRoot()->current()->uri;
+            // $categoryCount = Category::where(['url' => $url, 'status' => 1])->count();
+
+            $url = url('/search-products') . '?query=' . $search;
+
+            return view('front.products.listing', compact(
+                'categoryDetails',
+                'categoryProducts',
+                'categories',
+                'brands',
+                'url'
+            ));
         } else {
             abort(404);
         }
