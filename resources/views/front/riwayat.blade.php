@@ -46,8 +46,13 @@
                                     class="btn btn-success btn-sm" target="_blank">
                                     Cetak
                                 </a>
-
-                                @elseif ($sum['orders'][0]->payment_proof)
+                                @else
+                                <a href="{{ route('orders.invoice', ['checkout_id' => $sum['orders'][0]['checkout_id'], 'user_id' => $sum['orders'][0]['user_id']]) }}"
+                                    class="btn btn-secondary btn-sm disabled" target="_blank">
+                                    Cetak
+                                </a>
+                                @endif
+                                @if ($sum['orders'][0]->payment_proof)
                                 <a href="/payment/{{ $sum['orders'][0]->checkout_id }}"
                                     class="btn btn-primary btn-sm">Detail</a>
                                 @else

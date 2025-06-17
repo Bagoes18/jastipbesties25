@@ -48,6 +48,7 @@ class PesananController extends Controller
                 'orders' => $group                      // Order detail jika ingin ditampilkan
             ];
         });
+        // dd($orderSummaries);
         return view('admin.pesanan', compact('orderSummaries', 'pesananModul'));
     }
     public function acceptPayment($id)

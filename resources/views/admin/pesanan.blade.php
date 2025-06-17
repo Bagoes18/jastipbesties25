@@ -63,7 +63,7 @@
                                         <th scope="col">Jumlah Produk</th>
                                         <th scope="col">List Produk</th>
                                         <th scope="col">Total</th>
-                                        <th scope="col">Status</th>
+                                        {{-- <th scope="col">Status</th> --}}
                                         <th scope="col">Aksi</th>
                                     </tr>
                                 </thead>
@@ -82,9 +82,13 @@
 
                                         </td>
                                         <td>Rp {{ number_format($sum['total'], 0, ',', '.') }}</td>
-                                        <td>{{ $sum['orders'][0]->status }}</td>
+                                        {{-- <td>{{ $sum['orders'][0]->status }}</td> --}}
                                         <td>
                                             @if ($pesananModul['edit_access']==1 || $pesananModul['full_access']==1)
+                                            @if($sum['orders'][0]->status == 'Diterima' || $sum['orders'][0]->status ==
+                                            'Ditolak')
+                                            {{ $sum['orders'][0]->status }}
+                                            @else
                                             <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                                 data-bs-target="#bukti{{ $loop->index }}">Bukti</button>
                                             <a href="{{ route('payment.accept', $sum['orders'][0]->checkout_id) }}"
@@ -92,6 +96,8 @@
 
                                             <a href="{{ route('payment.reject', $sum['orders'][0]->checkout_id) }}"
                                                 class="btn btn-danger">Tolak</a>
+
+                                            @endif
                                             @else
                                             -
                                             @endif
