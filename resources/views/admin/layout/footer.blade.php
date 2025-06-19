@@ -1,5 +1,5 @@
 <footer class="main-footer">
-  <strong>Copyright &copy; Bagus Hariyanto
+  <strong>Copyright &copy; Bagus Hariyanto X Politeknik Harapan Bersama Tegal
     <?php echo date('Y')?>
   </strong>
   All rights reserved.

@@ -10,29 +10,30 @@ use App\Models\Category;
 use App\Models\Brand;
 use App\Models\RequestProduct;
 use PhpParser\Builder\Function_;
+use Intervention\Image\Facades\Image;
 class ProductController extends Controller
 {
-    public function request(Request $request)
-    {
-        $request->validate([
-            'name' => 'required',
-        ]);
+    // public function request(Request $request)
+    // {
+    //     $request->validate([
+    //         'name' => 'required',
+    //     ]);
 
-        if ($request->hasFile('image')) {
-            $image = $request->file('image');
-            $imageName = time() . '.' . $image->getClientOriginalExtension();
-            $image->storeAs('storage/RequestProduct', $imageName);
+    //     if ($request->hasFile('image')) {
+    //         $image = $request->file('image');
+    //         $imageName = time() . '.' . $image->getClientOriginalExtension();
+    //         $image->storeAs('storage/RequestProduct', $imageName);
 
-        }
+    //     }
 
-        $requests = new RequestProduct();
-        $requests->name = $request->name;
-        if ($request->hasFile('image')) {
-            $requests->image = $imageName;
-        }
-        $requests->save();
-        return redirect()->back()->with('success', 'Request sent successfully');
-    }
+    //     $requests = new RequestProduct();
+    //     $requests->name = $request->name;
+    //     if ($request->hasFile('image')) {
+    //         $requests->image = $imageName;
+    //     }
+    //     $requests->save();
+    //     return redirect()->back()->with('success', 'Request sent successfully');
+    // }
 
     // public function listing()
     // {
@@ -78,6 +79,42 @@ class ProductController extends Controller
     //     }
 
     // }
+    public function request(Request $request)
+    {
+        $request->validate([
+            'name' => 'required',
+            'image' => 'nullable|image|mimes:jpeg,jpg,png|max:2048', // validasi gambar opsional
+        ]);
+
+        $imageName = null;
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $destinationPath = public_path('RequestProduct');
+
+            // Pastikan foldernya ada
+            if (!file_exists($destinationPath)) {
+                mkdir($destinationPath, 0755, true);
+            }
+
+            // Resize dan simpan menggunakan Intervention
+            $img = Image::make($image)->resize(800, null, function ($constraint) {
+                $constraint->aspectRatio();
+                $constraint->upsize();
+            });
+            $img->save($destinationPath . '/' . $imageName);
+        }
+
+        $requests = new RequestProduct();
+        $requests->name = $request->name;
+        if ($imageName) {
+            $requests->image = $imageName;
+        }
+        $requests->save();
+
+        return redirect()->back()->with('success', 'Request sent successfully');
+    }
     public function listing()
     {
         $categories = Category::getCategories();

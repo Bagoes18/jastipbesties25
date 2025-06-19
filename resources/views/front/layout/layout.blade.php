@@ -63,6 +63,25 @@
                 /* Sembunyikan versi desktop */
             }
         }
+
+        .cart-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: -5px;
+            right: -10px;
+            background-color: red !important;
+            color: white !important;
+            padding: 2px 6px;
+            border-radius: 50%;
+            font-size: 12px;
+            font-weight: bold;
+            line-height: 1;
+            z-index: 10;
+        }
     </style>
 
 </head>
@@ -97,7 +116,10 @@
         <div class="offcanvas__nav__option">
             <a href="#" class="search-switch"><img src="{{ asset('front/img/icon/search.png') }}" alt=""></a>
             {{-- <a href="#"><img src="{{ asset('front/img/icon/heart.png') }}" alt=""></a> --}}
-            <a href="/keranjang"><img src="{{ asset('front/img/icon/cart.png') }}" alt=""> </a>
+            <a href="/keranjang"><img src="{{ asset('front/img/icon/cart.png') }}" alt="">@if(isset($cartCount) &&
+                $cartCount > 0)
+                <span class="cart-badge">{{ $cartCount }}</span>
+                @endif</a>
             <a href="/riwayat"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="black"
                     class="bi bi-wallet2" viewBox="0 0 16 16">
                     <path

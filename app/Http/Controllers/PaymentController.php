@@ -7,6 +7,7 @@ use App\Http\Requests\StorePaymentRequest;
 use App\Http\Requests\UpdatePaymentRequest;
 use App\Models\Order;
 use Illuminate\Http\Request;
+use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
 
 class PaymentController extends Controller
@@ -37,30 +38,68 @@ class PaymentController extends Controller
     /**
      * Store a newly created resource in storage.
      */
+    // public function store(Request $request, $id)
+    // {
+
+    //     if ($request->hasFile('bukti_transfer')) {
+    //         $image = $request->file('bukti_transfer');
+    //         $imageName = $id . '.' . $image->getClientOriginalExtension();
+    //         $path = 'storage/PaymentProof/' . $imageName;
+
+    //         // Hapus file lama jika sudah ada
+    //         if (Storage::exists($path)) {
+    //             Storage::delete($path);
+    //         }
+
+    //         // Simpan file baru
+    //         $image->storeAs('storage/PaymentProof', $imageName);
+    //         $order = Order::where('checkout_id', $id)->first();
+    //         $order->payment_proof = $imageName;
+    //         $order->save();
+    //     } else {
+    //         return redirect()->back()->with('error', 'No file uploaded');
+    //     }
+
+    //     return redirect()->back()->with('success', 'Payment proof uploaded successfully');
+    // }
     public function store(Request $request, $id)
     {
-
         if ($request->hasFile('bukti_transfer')) {
             $image = $request->file('bukti_transfer');
             $imageName = $id . '.' . $image->getClientOriginalExtension();
-            $path = 'storage/PaymentProof/' . $imageName;
+            $destinationPath = public_path('PaymentProof');
 
-            // Hapus file lama jika sudah ada
-            if (Storage::exists($path)) {
-                Storage::delete($path);
+            // Pastikan folder ada
+            if (!file_exists($destinationPath)) {
+                mkdir($destinationPath, 0755, true);
             }
 
-            // Simpan file baru
-            $image->storeAs('storage/PaymentProof', $imageName);
+            $fullPath = $destinationPath . '/' . $imageName;
+
+            // Hapus file lama jika ada
+            if (file_exists($fullPath)) {
+                unlink($fullPath);
+            }
+
+            // Resize & simpan dengan Intervention
+            $img = Image::make($image)->resize(800, null, function ($constraint) {
+                $constraint->aspectRatio();
+                $constraint->upsize();
+            });
+            $img->save($fullPath);
+
+            // Simpan nama file ke database
             $order = Order::where('checkout_id', $id)->first();
             $order->payment_proof = $imageName;
             $order->save();
-        } else {
-            return redirect()->back()->with('error', 'No file uploaded');
+
+            return redirect()->back()->with('success', 'Payment proof uploaded successfully');
         }
 
-        return redirect()->back()->with('success', 'Payment proof uploaded successfully');
+        return redirect()->back()->with('error', 'No file uploaded');
     }
+
+
 
     /**
      * Display the specified resource.

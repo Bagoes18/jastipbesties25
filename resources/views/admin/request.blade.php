@@ -83,7 +83,7 @@
 
                                                     <div class="modal-body">
                                                         @if ($req->image)
-                                                        <img src="{{ asset('storage/RequestProduct/' . $req->image) }}"
+                                                        <img src="{{ asset('RequestProduct/' . $req->image) }}"
                                                             alt="Bukti Pembayaran" class="img-fluid">
                                                         @else
                                                         <p>Tidak Ada Image</p>

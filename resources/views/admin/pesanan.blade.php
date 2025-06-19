@@ -117,7 +117,7 @@
 
                                                     <div class="modal-body">
                                                         @if ($sum['orders'][0]->payment_proof)
-                                                        <img src="{{ asset('storage/PaymentProof/' . $sum['orders'][0]->payment_proof) }}"
+                                                        <img src="{{ asset('PaymentProof/' . $sum['orders'][0]->payment_proof) }}"
                                                             alt="Bukti Pembayaran" class="img-fluid">
                                                         @else
                                                         <p>Bukti pembayaran tidak tersedia</p>
