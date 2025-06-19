@@ -47,62 +47,64 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <table id="brands" class="table table-bordered table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Nama</th>
-                                        <th>URL</th>
-                                        <th>Tanggal Dibuat</th>
-                                        <th>Aksi</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($brands as $brand)
-                                    <tr>
-                                        <td>{{ $brand['id'] }}</td>
-                                        <td>{{ $brand['brand_name'] }}</td>
-                                        <td>{{ $brand['url'] }}</td>
-                                        <td>{{ date("F j, Y, g:i a", strtotime($brand['created_at'])) }}</td>
-                                        <td>
+                            <div class="table-responsive">
+                                <table id="brands" class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Nama</th>
+                                            <th>URL</th>
+                                            <th>Tanggal Dibuat</th>
+                                            <th>Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($brands as $brand)
+                                        <tr>
+                                            <td>{{ $brand['id'] }}</td>
+                                            <td>{{ $brand['brand_name'] }}</td>
+                                            <td>{{ $brand['url'] }}</td>
+                                            <td>{{ date("F j, Y, g:i a", strtotime($brand['created_at'])) }}</td>
+                                            <td>
 
-                                            @if ($brandsModul['edit_access']==1 ||
-                                            $brandsModul['full_access']==1)
-                                            @if ($brand['status']==1)
-                                            <a class="updateBrandStatus" id="brand-{{ $brand['id'] }}"
-                                                brand_id="{{ $brand['id'] }}" href="javascript:void(0)"><i
-                                                    class="fas fa-toggle-on" status="Active"></i></a>
-                                            @else
-                                            <a class="updateBrandStatus" id="brand-{{ $brand['id'] }}"
-                                                brand_id="{{ $brand['id'] }}" style="color:grey"
-                                                href="javascript:void(0)"><i class="fas fa-toggle-off"
-                                                    status="Inactive"></i></a>
-                                            @endif
-                                            @endif
+                                                @if ($brandsModul['edit_access']==1 ||
+                                                $brandsModul['full_access']==1)
+                                                @if ($brand['status']==1)
+                                                <a class="updateBrandStatus" id="brand-{{ $brand['id'] }}"
+                                                    brand_id="{{ $brand['id'] }}" href="javascript:void(0)"><i
+                                                        class="fas fa-toggle-on" status="Active"></i></a>
+                                                @else
+                                                <a class="updateBrandStatus" id="brand-{{ $brand['id'] }}"
+                                                    brand_id="{{ $brand['id'] }}" style="color:grey"
+                                                    href="javascript:void(0)"><i class="fas fa-toggle-off"
+                                                        status="Inactive"></i></a>
+                                                @endif
+                                                @endif
 
 
 
 
-                                            &nbsp; &nbsp;
+                                                &nbsp; &nbsp;
 
-                                            @if ($brandsModul['edit_access']==1 ||
-                                            $brandsModul['full_access']==1)
-                                            <a href="{{ url('admin/add-edit-brand',$brand['id']) }}"><i
-                                                    class="fas fa-edit"></i></a>
-                                            &nbsp; &nbsp;
-                                            @endif
-                                            @if ($brandsModul['full_access']==1)
-                                            <a class="confirmDelete" title="Delete brand" href="javascript:void(0)"
-                                                record="brand" recordid="{{ $brand['id'] }}"><i
-                                                    class="fas fa-trash"></i></a>
-                                            @endif
+                                                @if ($brandsModul['edit_access']==1 ||
+                                                $brandsModul['full_access']==1)
+                                                <a href="{{ url('admin/add-edit-brand',$brand['id']) }}"><i
+                                                        class="fas fa-edit"></i></a>
+                                                &nbsp; &nbsp;
+                                                @endif
+                                                @if ($brandsModul['full_access']==1)
+                                                <a class="confirmDelete" title="Delete brand" href="javascript:void(0)"
+                                                    record="brand" recordid="{{ $brand['id'] }}"><i
+                                                        class="fas fa-trash"></i></a>
+                                                @endif
 
-                                        </td>
-                                    </tr>
-                                    @endforeach
-                                </tbody>
+                                            </td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
 
-                            </table>
+                                </table>
+                            </div>
                         </div>
                         <!-- /.card-body -->
                     </div>

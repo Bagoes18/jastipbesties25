@@ -53,55 +53,55 @@
                         <!-- /.card-header -->
                         <!-- form start -->
                         <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped bg-transparent">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Nama</th>
+                                            <th scope="col">Gambar</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($request as $req)
+                                        <tr>
+                                            <td>{{ $req->name }}</td>
+                                            <td>
+                                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                                    data-bs-target="#image{{ $loop->index }}">image</button>
+                                            </td>
+                                        </tr>
+                                        <div class="modal fade" id="image{{ $loop->index }}" tabindex="-1"
+                                            aria-labelledby="myModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
 
-                            <table class="table table-bordered table-striped bg-transparent">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">Nama</th>
-                                        <th scope="col">Gambar</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($request as $req)
-                                    <tr>
-                                        <td>{{ $req->name }}</td>
-                                        <td>
-                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                                data-bs-target="#image{{ $loop->index }}">image</button>
-                                        </td>
-                                    </tr>
-                                    <div class="modal fade" id="image{{ $loop->index }}" tabindex="-1"
-                                        aria-labelledby="myModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="myModalLabel">Image</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            aria-label="Close"></button>
+                                                    </div>
 
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="myModalLabel">Image</h5>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                        aria-label="Close"></button>
+                                                    <div class="modal-body">
+                                                        @if ($req->image)
+                                                        <img src="{{ asset('storage/RequestProduct/' . $req->image) }}"
+                                                            alt="Bukti Pembayaran" class="img-fluid">
+                                                        @else
+                                                        <p>Tidak Ada Image</p>
+                                                        @endif
+                                                    </div>
+
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                            data-bs-dismiss="modal">Close</button>
+                                                    </div>
+
                                                 </div>
-
-                                                <div class="modal-body">
-                                                    @if ($req->image)
-                                                    <img src="{{ asset('storage/RequestProduct/' . $req->image) }}"
-                                                        alt="Bukti Pembayaran" class="img-fluid">
-                                                    @else
-                                                    <p>Tidak Ada Image</p>
-                                                    @endif
-                                                </div>
-
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary"
-                                                        data-bs-dismiss="modal">Close</button>
-                                                </div>
-
                                             </div>
                                         </div>
-                                    </div>
-                                    @endforeach
-                                </tbody>
-                            </table>
-
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
 
 
                         </div>

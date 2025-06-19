@@ -47,69 +47,71 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <table id="banners" class="table table-bordered table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Gambar</th>
-                                        <th>Tipe</th>
-                                        <th>Link</th>
-                                        <th>Judul</th>
-                                        <th>Aksi</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($banners as $banner)
-                                    <tr>
-                                        <td>{{ $banner['id'] }}</td>
-                                        <td><a target="_blank"
-                                                href="{{ url('front/images/banners/'.$banner['image']) }}"><img
-                                                    style="width: 180px;"
-                                                    src="{{ asset('front/images/banners/'.$banner['image']) }}"></a>
-                                        </td>
-                                        <td>{{ $banner['type'] }}</td>
-                                        <td>{{ $banner['link'] }}</td>
-                                        <td>{{ $banner['title'] }}</td>
+                            <div class="table-responsive">
+                                <table id="banners" class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Gambar</th>
+                                            <th>Tipe</th>
+                                            <th>Link</th>
+                                            <th>Judul</th>
+                                            <th>Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($banners as $banner)
+                                        <tr>
+                                            <td>{{ $banner['id'] }}</td>
+                                            <td><a target="_blank"
+                                                    href="{{ url('front/images/banners/'.$banner['image']) }}"><img
+                                                        style="width: 180px;"
+                                                        src="{{ asset('front/images/banners/'.$banner['image']) }}"></a>
+                                            </td>
+                                            <td>{{ $banner['type'] }}</td>
+                                            <td>{{ $banner['link'] }}</td>
+                                            <td>{{ $banner['title'] }}</td>
 
-                                        <td>
+                                            <td>
 
-                                            @if ($bannersModul['edit_access']==1 ||
-                                            $bannersModul['full_access']==1)
-                                            @if ($banner['status']==1)
-                                            <a class="updateBannerStatus" id="banner-{{ $banner['id'] }}"
-                                                banner_id="{{ $banner['id'] }}" href="javascript:void(0)"><i
-                                                    class="fas fa-toggle-on" status="Active"></i></a>
-                                            @else
-                                            <a class="updateBannerStatus" id="banner-{{ $banner['id'] }}"
-                                                banner_id="{{ $banner['id'] }}" style="color:grey"
-                                                href="javascript:void(0)"><i class="fas fa-toggle-off"
-                                                    status="Inactive"></i></a>
-                                            @endif
-                                            @endif
-
-
+                                                @if ($bannersModul['edit_access']==1 ||
+                                                $bannersModul['full_access']==1)
+                                                @if ($banner['status']==1)
+                                                <a class="updateBannerStatus" id="banner-{{ $banner['id'] }}"
+                                                    banner_id="{{ $banner['id'] }}" href="javascript:void(0)"><i
+                                                        class="fas fa-toggle-on" status="Active"></i></a>
+                                                @else
+                                                <a class="updateBannerStatus" id="banner-{{ $banner['id'] }}"
+                                                    banner_id="{{ $banner['id'] }}" style="color:grey"
+                                                    href="javascript:void(0)"><i class="fas fa-toggle-off"
+                                                        status="Inactive"></i></a>
+                                                @endif
+                                                @endif
 
 
-                                            &nbsp; &nbsp;
 
-                                            @if ($bannersModul['edit_access']==1 ||
-                                            $bannersModul['full_access']==1)
-                                            <a href="{{ url('admin/add-edit-banner',$banner['id']) }}"><i
-                                                    class="fas fa-edit"></i></a>
-                                            &nbsp; &nbsp;
-                                            @endif
-                                            @if ($bannersModul['full_access']==1)
-                                            <a class="confirmDelete" title="Delete banner" href="javascript:void(0)"
-                                                record="banner" recordid="{{ $banner['id'] }}"><i
-                                                    class="fas fa-trash"></i></a>
-                                            @endif
 
-                                        </td>
-                                    </tr>
-                                    @endforeach
-                                </tbody>
+                                                &nbsp; &nbsp;
 
-                            </table>
+                                                @if ($bannersModul['edit_access']==1 ||
+                                                $bannersModul['full_access']==1)
+                                                <a href="{{ url('admin/add-edit-banner',$banner['id']) }}"><i
+                                                        class="fas fa-edit"></i></a>
+                                                &nbsp; &nbsp;
+                                                @endif
+                                                @if ($bannersModul['full_access']==1)
+                                                <a class="confirmDelete" title="Delete banner" href="javascript:void(0)"
+                                                    record="banner" recordid="{{ $banner['id'] }}"><i
+                                                        class="fas fa-trash"></i></a>
+                                                @endif
+
+                                            </td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+
+                                </table>
+                            </div>
                         </div>
                         <!-- /.card-body -->
                     </div>

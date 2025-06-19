@@ -22,7 +22,7 @@ class PaymentController extends Controller
         if (!$order || !$order->payment) {
             return redirect()->back()->with('error', 'Payment not found');
         }
-        
+
         return view('front.payment', compact('total', 'order'));
     }
 
@@ -43,7 +43,7 @@ class PaymentController extends Controller
         if ($request->hasFile('bukti_transfer')) {
             $image = $request->file('bukti_transfer');
             $imageName = $id . '.' . $image->getClientOriginalExtension();
-            $path = 'public/PaymentProof/' . $imageName;
+            $path = 'storage/PaymentProof/' . $imageName;
 
             // Hapus file lama jika sudah ada
             if (Storage::exists($path)) {
@@ -51,7 +51,7 @@ class PaymentController extends Controller
             }
 
             // Simpan file baru
-            $image->storeAs('public/PaymentProof', $imageName);
+            $image->storeAs('storage/PaymentProof', $imageName);
             $order = Order::where('checkout_id', $id)->first();
             $order->payment_proof = $imageName;
             $order->save();

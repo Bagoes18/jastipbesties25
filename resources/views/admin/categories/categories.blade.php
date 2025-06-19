@@ -45,62 +45,64 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <table id="categories" class="table table-bordered table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Nama</th>
-                                        <th>Kategori Induk</th>
-                                        <th>URL</th>
-                                        <th>Tanggal Dibuat</th>
-                                        <th>Aksi</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($categories as $category)
-                                    <tr>
-                                        <td>{{ $category['id'] }}</td>
-                                        <td>{{ $category['category_name'] }}</td>
-                                        <td>@if (isset($category['parentcategory']['category_name']))
-                                            {{ $category['parentcategory']['category_name'] }}
+                            <div class="table-responsive">
+                                <table id="categories" class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Nama</th>
+                                            <th>Kategori Induk</th>
+                                            <th>URL</th>
+                                            <th>Tanggal Dibuat</th>
+                                            <th>Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($categories as $category)
+                                        <tr>
+                                            <td>{{ $category['id'] }}</td>
+                                            <td>{{ $category['category_name'] }}</td>
+                                            <td>@if (isset($category['parentcategory']['category_name']))
+                                                {{ $category['parentcategory']['category_name'] }}
 
-                                            @endif</td>
-                                        <td>{{ $category['url'] }}</td>
-                                        <td>{{ date("F j, Y, g:i a", strtotime($category['created_at'])) }}</td>
-                                        <td>
-                                            @if ($categoriesModul['edit_access']==1 ||
-                                            $categoriesModul['full_access']==1)
-                                            @if ($category['status']==1)
-                                            <a class="updateCategoryStatus" id="category-{{ $category['id'] }}"
-                                                category_id="{{ $category['id'] }}" href="javascript:void(0)"><i
-                                                    class="fas fa-toggle-on" status="Active"></i></a>
-                                            @else
-                                            <a class="updateCategoryStatus" id="category-{{ $category['id'] }}"
-                                                category_id="{{ $category['id'] }}" style="color:grey"
-                                                href="javascript:void(0)"><i class="fas fa-toggle-off"
-                                                    status="Inactive"></i></a>
-                                            @endif
-                                            @endif
+                                                @endif</td>
+                                            <td>{{ $category['url'] }}</td>
+                                            <td>{{ date("F j, Y, g:i a", strtotime($category['created_at'])) }}</td>
+                                            <td>
+                                                @if ($categoriesModul['edit_access']==1 ||
+                                                $categoriesModul['full_access']==1)
+                                                @if ($category['status']==1)
+                                                <a class="updateCategoryStatus" id="category-{{ $category['id'] }}"
+                                                    category_id="{{ $category['id'] }}" href="javascript:void(0)"><i
+                                                        class="fas fa-toggle-on" status="Active"></i></a>
+                                                @else
+                                                <a class="updateCategoryStatus" id="category-{{ $category['id'] }}"
+                                                    category_id="{{ $category['id'] }}" style="color:grey"
+                                                    href="javascript:void(0)"><i class="fas fa-toggle-off"
+                                                        status="Inactive"></i></a>
+                                                @endif
+                                                @endif
 
 
-                                            &nbsp; &nbsp;
-                                            @if ($categoriesModul['edit_access']==1 ||
-                                            $categoriesModul['full_access']==1)
-                                            <a href="{{ url('admin/add-edit-category',$category['id']) }}"><i
-                                                    class="fas fa-edit"></i></a>
-                                            &nbsp; &nbsp;
-                                            @endif
-                                            @if ($categoriesModul['full_access']==1)
-                                            <a class="confirmDelete" title="Delete Category" href="javascript:void(0)"
-                                                record="category" recordid="{{ $category['id'] }}"><i
-                                                    class="fas fa-trash"></i></a>
-                                            @endif
-                                        </td>
-                                    </tr>
-                                    @endforeach
-                                </tbody>
+                                                &nbsp; &nbsp;
+                                                @if ($categoriesModul['edit_access']==1 ||
+                                                $categoriesModul['full_access']==1)
+                                                <a href="{{ url('admin/add-edit-category',$category['id']) }}"><i
+                                                        class="fas fa-edit"></i></a>
+                                                &nbsp; &nbsp;
+                                                @endif
+                                                @if ($categoriesModul['full_access']==1)
+                                                <a class="confirmDelete" title="Delete Category"
+                                                    href="javascript:void(0)" record="category"
+                                                    recordid="{{ $category['id'] }}"><i class="fas fa-trash"></i></a>
+                                                @endif
+                                            </td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
 
-                            </table>
+                                </table>
+                            </div>
                         </div>
                         <!-- /.card-body -->
                     </div>

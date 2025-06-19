@@ -40,7 +40,7 @@ $categories = Category::getCategories();
         <div class="row">
             <div class="col-lg-3 col-md-3">
                 <div class="header__logo">
-                    <a href="./index.html"><img src="{{ asset('front/img/logo.png') }}" alt=""></a>
+                    <a href="/"><img src="{{ asset('front/img/logo.png') }}" alt=""></a>
                 </div>
             </div>
             <div class="col-lg-6 col-md-6">
@@ -93,7 +93,7 @@ $categories = Category::getCategories();
                                 <li><a href="./blog-details.html">Blog Details</a></li>
                             </ul>
                         </li> --}}
-                        <li><a href="">Titipan</a></li>
+                        <li><a href="/riwayat">Titipan</a></li>
                         <li><a href="/request">Request Produk</a></li>
 
                     </ul>

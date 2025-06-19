@@ -21,7 +21,7 @@ class ProductController extends Controller
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $imageName = time() . '.' . $image->getClientOriginalExtension();
-            $image->storeAs('public/RequestProduct', $imageName);
+            $image->storeAs('storage/RequestProduct', $imageName);
 
         }
 

@@ -40,59 +40,61 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <table id="subadmins" class="table table-bordered table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Nama</th>
-                                        <th>No. HP</th>
-                                        <th>Email</th>
-                                        <th>Tipe</th>
-                                        <th>Tanggal Dibuat</th>
-                                        <th>Aksi</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($subadmins as $subadmin)
-                                    <tr>
-                                        <td>{{ $subadmin->id }}</td>
-                                        <td>{{ $subadmin->name }}</td>
-                                        <td>{{ $subadmin->mobile }}</td>
-                                        <td>{{ $subadmin->email }}</td>
-                                        <td>{{ $subadmin->type }}</td>
+                            <div class="table-responsive">
+                                <table id="subadmins" class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Nama</th>
+                                            <th>No. HP</th>
+                                            <th>Email</th>
+                                            <th>Tipe</th>
+                                            <th>Tanggal Dibuat</th>
+                                            <th>Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($subadmins as $subadmin)
+                                        <tr>
+                                            <td>{{ $subadmin->id }}</td>
+                                            <td>{{ $subadmin->name }}</td>
+                                            <td>{{ $subadmin->mobile }}</td>
+                                            <td>{{ $subadmin->email }}</td>
+                                            <td>{{ $subadmin->type }}</td>
 
-                                        <td>{{ date('F j, Y, g:i a', strtotime($subadmin->created_at)) }}</td>
-                                        <td>
+                                            <td>{{ date('F j, Y, g:i a', strtotime($subadmin->created_at)) }}</td>
+                                            <td>
 
-                                            @if ($subadmin['status'] == 1)
-                                            <a class="updateSubadminStatus" id="subadmin-{{ $subadmin->id }}"
-                                                subadmin_id="{{ $subadmin->id }}" href="javascript:void(0)"><i
-                                                    class="fas fa-toggle-on" status="Active"></i></a>
-                                            @else
-                                            <a class="updateSubadminStatus" id="subadmin-{{ $subadmin->id }}"
-                                                subadmin_id="{{ $subadmin->id }}" style="color:grey"
-                                                href="javascript:void(0)"><i class="fas fa-toggle-off"
-                                                    status="Inactive"></i></a>
-                                            @endif
+                                                @if ($subadmin['status'] == 1)
+                                                <a class="updateSubadminStatus" id="subadmin-{{ $subadmin->id }}"
+                                                    subadmin_id="{{ $subadmin->id }}" href="javascript:void(0)"><i
+                                                        class="fas fa-toggle-on" status="Active"></i></a>
+                                                @else
+                                                <a class="updateSubadminStatus" id="subadmin-{{ $subadmin->id }}"
+                                                    subadmin_id="{{ $subadmin->id }}" style="color:grey"
+                                                    href="javascript:void(0)"><i class="fas fa-toggle-off"
+                                                        status="Inactive"></i></a>
+                                                @endif
 
-                                            &nbsp; &nbsp;
-                                            <a href="{{ url('admin/add-edit-subadmin', $subadmin->id) }}"><i
-                                                    class="fas fa-edit"></i></a>
-                                            &nbsp; &nbsp;
-                                            <a class="confirmDelete" name="Subadmin" title="Delete Subadmin"
-                                                href="javascript:void(0)" record="subadmin"
-                                                recordid="{{ $subadmin->id }}" <?php /*
-                                                href="{{ url('delete-subadmin/',$subadmin->id) }}" */ ?>><i
-                                                    class="fas fa-trash"></i></a>
-                                            &nbsp; &nbsp;
-                                            <a href="{{ url('admin/update-role', $subadmin->id) }}"><i
-                                                    class="fas fa-unlock"></i></a>
-                                        </td>
-                                    </tr>
-                                    @endforeach
-                                </tbody>
+                                                &nbsp; &nbsp;
+                                                <a href="{{ url('admin/add-edit-subadmin', $subadmin->id) }}"><i
+                                                        class="fas fa-edit"></i></a>
+                                                &nbsp; &nbsp;
+                                                <a class="confirmDelete" name="Subadmin" title="Delete Subadmin"
+                                                    href="javascript:void(0)" record="subadmin"
+                                                    recordid="{{ $subadmin->id }}" <?php /*
+                                                    href="{{ url('delete-subadmin/',$subadmin->id) }}" */ ?>><i
+                                                        class="fas fa-trash"></i></a>
+                                                &nbsp; &nbsp;
+                                                <a href="{{ url('admin/update-role', $subadmin->id) }}"><i
+                                                        class="fas fa-unlock"></i></a>
+                                            </td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
 
-                            </table>
+                                </table>
+                            </div>
                         </div>
                         <!-- /.card-body -->
                     </div>

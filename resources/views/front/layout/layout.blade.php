@@ -41,6 +41,28 @@
         .header__menu a {
             text-decoration: none !important;
         }
+
+        @media (max-width: 991.98px) {
+            .header__menu ul {
+                padding-left: 0;
+                margin-bottom: 0;
+            }
+
+            .header__menu ul li {
+                display: block;
+                border-bottom: 1px solid #eee;
+                padding: 10px 0;
+            }
+
+            .mobile-icons a {
+                padding: 0 8px;
+            }
+
+            .header__nav__option {
+                display: none !important;
+                /* Sembunyikan versi desktop */
+            }
+        }
     </style>
 
 </head>
@@ -72,12 +94,20 @@
                 </ul>
             </div> --}}
         </div>
-        {{-- <div class="offcanvas__nav__option">
-            <a href="#" class="search-switch"><img src="img/icon/search.png" alt=""></a>
-            <a href="#"><img src="img/icon/heart.png" alt=""></a>
-            <a href="#"><img src="img/icon/cart.png" alt=""> <span>0</span></a>
-            <div class="price">$0.00</div>
-        </div> --}}
+        <div class="offcanvas__nav__option">
+            <a href="#" class="search-switch"><img src="{{ asset('front/img/icon/search.png') }}" alt=""></a>
+            {{-- <a href="#"><img src="{{ asset('front/img/icon/heart.png') }}" alt=""></a> --}}
+            <a href="/keranjang"><img src="{{ asset('front/img/icon/cart.png') }}" alt=""> </a>
+            <a href="/riwayat"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="black"
+                    class="bi bi-wallet2" viewBox="0 0 16 16">
+                    <path
+                        d="M12.136.326A1.5 1.5 0 0 1 14 1.78V3h.5A1.5 1.5 0 0 1 16 4.5v9a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 13.5v-9a1.5 1.5 0 0 1 1.432-1.499zM5.562 3H13V1.78a.5.5 0 0 0-.621-.484zM1.5 4a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5z" />
+                </svg> </a>
+            <a href="/profile"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="black"
+                    class="bi bi-person-fill" viewBox="0 0 16 16">
+                    <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
+                </svg></a>
+        </div>
         <div id="mobile-menu-wrap"></div>
         <div class="offcanvas__text">
             <p>Syarat dan ketentuan berlaku.</p>
@@ -130,7 +160,18 @@
                 });
             });
         });
+        
     </script>
+    <script src="{{ asset('front/js/jquery.slicknav.min.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+        $('.mobile-menu').slicknav({
+            prependTo: '#mobile-menu-wrap',
+            allowParentLinks: true
+        });
+    });
+    </script>
+
 
 </body>
 

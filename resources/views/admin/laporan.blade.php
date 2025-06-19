@@ -56,28 +56,28 @@
                         <!-- /.card-header -->
                         <!-- form start -->
                         <div class="card-body row d-flex justify-content-center mt-5 mb-5">
-
-                            <table class="table table-bordered table-striped bg-transparent">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">Checkout ID</th>
-                                        <th scope="col">Jumlah Produk</th>
-                                        <th scope="col">Total</th>
-                                        <th scope="col">Status</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($orderSummaries as $sum)
-                                    <tr>
-                                        <td>{{ $sum['orders'][0]->checkout_id }}</td>
-                                        <td>{{ $sum['count'] }}</td>
-                                        <td>Rp {{ number_format($sum['total'], 0, ',', '.') }}</td>
-                                        <td>{{ $sum['orders'][0]->status }}</td>
-                                    </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped bg-transparent">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Checkout ID</th>
+                                            <th scope="col">Jumlah Produk</th>
+                                            <th scope="col">Total</th>
+                                            <th scope="col">Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($orderSummaries as $sum)
+                                        <tr>
+                                            <td>{{ $sum['orders'][0]->checkout_id }}</td>
+                                            <td>{{ $sum['count'] }}</td>
+                                            <td>Rp {{ number_format($sum['total'], 0, ',', '.') }}</td>
+                                            <td>{{ $sum['orders'][0]->status }}</td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
 
 
                         </div>
