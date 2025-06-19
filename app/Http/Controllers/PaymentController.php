@@ -9,6 +9,7 @@ use App\Models\Order;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
+use Session;
 
 class PaymentController extends Controller
 {
@@ -17,6 +18,7 @@ class PaymentController extends Controller
      */
     public function index($id)
     {
+        Session::put("page", 'payment');
         $total = Order::where('checkout_id', $id)->sum('total');
         $order = Order::where('checkout_id', $id)->with('payment')->first();
 
@@ -67,7 +69,7 @@ class PaymentController extends Controller
         if ($request->hasFile('bukti_transfer')) {
             $image = $request->file('bukti_transfer');
             $imageName = $id . '.' . $image->getClientOriginalExtension();
-            $destinationPath = public_path('PaymentProof');
+            $destinationPath = public_path('front/images/PaymentProof');
 
             // Pastikan folder ada
             if (!file_exists($destinationPath)) {
@@ -93,7 +95,7 @@ class PaymentController extends Controller
             $order->payment_proof = $imageName;
             $order->save();
 
-            return redirect()->back()->with('success', 'Payment proof uploaded successfully');
+            return redirect()->back()->with('success', 'Bukti Pembayaran Berhasil Terkirim');
         }
 
         return redirect()->back()->with('error', 'No file uploaded');

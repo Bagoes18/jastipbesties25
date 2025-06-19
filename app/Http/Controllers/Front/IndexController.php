@@ -7,12 +7,13 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Models\Banner;
 use App\Models\CmsPage;
+use Session;
 
 class IndexController extends Controller
 {
     public function index()
     {
-
+        Session::put("page", 'home');
         $homeSlideBanners = Banner::where('type', 'Slider')->where('status', 1)->orderBy('sort', 'ASC')->get()->toArray();
         $homeFixBanners = Banner::where('type', 'Fix')->where('status', 1)->orderBy('sort', 'ASC')->get()->toArray();
 

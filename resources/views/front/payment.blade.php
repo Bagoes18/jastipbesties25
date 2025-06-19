@@ -6,6 +6,14 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
+                @if (Session::has('success_message'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>Success:</strong>{{ Session::get('success_message') }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                @endif
                 <div class="breadcrumb__text">
                     <h4>Payment</h4>
                     <div class="breadcrumb__links">
@@ -84,7 +92,7 @@
                     @endif
                     <br>
                     @if ($order->payment_proof)
-                    <img src="{{ asset('PaymentProof/' . $order->payment_proof) }}" alt="Bukti Transfer"
+                    <img src="{{ asset('front/images/PaymentProof/' . $order->payment_proof) }}" alt="Bukti Transfer"
                         class="img-fluid">
                     @endif
                 </form>

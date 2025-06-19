@@ -11,6 +11,7 @@ use App\Models\Brand;
 use App\Models\RequestProduct;
 use PhpParser\Builder\Function_;
 use Intervention\Image\Facades\Image;
+use Session;
 class ProductController extends Controller
 {
     // public function request(Request $request)
@@ -81,6 +82,7 @@ class ProductController extends Controller
     // }
     public function request(Request $request)
     {
+        Session::put("page", 'request');
         $request->validate([
             'name' => 'required',
             'image' => 'nullable|image|mimes:jpeg,jpg,png|max:2048', // validasi gambar opsional
@@ -91,7 +93,7 @@ class ProductController extends Controller
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $imageName = time() . '.' . $image->getClientOriginalExtension();
-            $destinationPath = public_path('RequestProduct');
+            $destinationPath = public_path('front/images/RequestProduct');
 
             // Pastikan foldernya ada
             if (!file_exists($destinationPath)) {
@@ -113,10 +115,11 @@ class ProductController extends Controller
         }
         $requests->save();
 
-        return redirect()->back()->with('success', 'Request sent successfully');
+        return redirect()->back()->with('success', 'Request Berhasil dikirim');
     }
     public function listing()
     {
+        Session::put("page", 'product');
         $categories = Category::getCategories();
         $brands = Brand::all();
 
@@ -197,7 +200,8 @@ class ProductController extends Controller
                 'categoryProducts',
                 'categories',
                 'brands',
-                'url'
+                'url',
+
             ));
         } else {
             abort(404);
@@ -206,6 +210,7 @@ class ProductController extends Controller
 
     public function detail($id)
     {
+        Session::put("page", 'product');
         $productDetails = Product::with(['category', 'brand', 'attributes', 'images'])->find($id);
         if (!$productDetails) {
             abort(404);

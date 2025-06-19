@@ -28,6 +28,7 @@ Route::get('/register', function () {
 })->middleware('guest');
 
 Route::get('/request', function () {
+    Session::put("page", 'request');
     return view('front.products.request');
 });
 

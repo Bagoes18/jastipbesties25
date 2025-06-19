@@ -46,9 +46,18 @@ $categories = Category::getCategories();
             <div class="col-lg-6 col-md-6">
                 <nav class="header__menu mobile-menu">
                     <ul>
-                        <li class="active"><a href="/">Beranda</a></li>
-
-                        <li><a href="#">Kategori</a>
+                        @if (Session::get('page') == 'home')
+                        @php $active='active' @endphp
+                        @else
+                        @php $active='' @endphp
+                        @endif
+                        <li class="{{ $active }}"><a href="/">Beranda</a></li>
+                        @if (Session::get('page') == 'product')
+                        @php $active='active' @endphp
+                        @else
+                        @php $active='' @endphp
+                        @endif
+                        <li class="{{ $active }}"><a href="#">Kategori</a>
                             <ul class="dropdown">
                                 @foreach ($categories as $category)
                                 <li>
@@ -93,8 +102,18 @@ $categories = Category::getCategories();
                                 <li><a href="./blog-details.html">Blog Details</a></li>
                             </ul>
                         </li> --}}
-                        <li><a href="/riwayat">Titipan</a></li>
-                        <li><a href="/request">Request Produk</a></li>
+                        @if (Session::get('page') == 'riwayat')
+                        @php $active='active' @endphp
+                        @else
+                        @php $active='' @endphp
+                        @endif
+                        <li class="{{ $active }}"><a href="/riwayat">Titipan</a></li>
+                        @if (Session::get('page') == 'request')
+                        @php $active='active' @endphp
+                        @else
+                        @php $active='' @endphp
+                        @endif
+                        <li class="{{ $active }}"><a href="/request">Request Produk</a></li>
 
                     </ul>
                 </nav>

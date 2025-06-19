@@ -9,6 +9,7 @@ use App\Models\Product;
 use App\Models\ProductsAttribute;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Session;
 
 use function PHPSTORM_META\map;
 
@@ -19,7 +20,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-
+        Session::put("page", 'order');
         $orders = Order::where('user_id', auth()->user()->id)->where('status', null)->with('atribute', 'product')->get();
         $payment = PaymentMethod::all();
         return view('front.order', compact('orders', 'payment'));
@@ -79,6 +80,7 @@ class OrderController extends Controller
 
     public function riwayat()
     {
+        Session::put("page", 'riwayat');
         $orders = Order::where('user_id', auth()->id())
             ->whereNotNull('status')
             ->with('payment')
