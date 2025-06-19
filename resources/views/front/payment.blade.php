@@ -92,7 +92,7 @@
                     @endif
                     <br>
                     @if ($order->payment_proof)
-                    <img src="{{ asset('front/images/PaymentProof/' . $order->payment_proof) }}" alt="Bukti Transfer"
+                    <img src="{{ asset('front/images/' . $order->payment_proof) }}" alt="Bukti Transfer"
                         class="img-fluid">
                     @endif
                 </form>

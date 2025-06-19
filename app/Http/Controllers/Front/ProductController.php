@@ -93,7 +93,7 @@ class ProductController extends Controller
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $imageName = time() . '.' . $image->getClientOriginalExtension();
-            $destinationPath = public_path('front/images/RequestProduct');
+            $destinationPath = public_path('front/images');
 
             // Pastikan foldernya ada
             if (!file_exists($destinationPath)) {

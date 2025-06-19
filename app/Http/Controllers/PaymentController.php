@@ -69,7 +69,7 @@ class PaymentController extends Controller
         if ($request->hasFile('bukti_transfer')) {
             $image = $request->file('bukti_transfer');
             $imageName = $id . '.' . $image->getClientOriginalExtension();
-            $destinationPath = public_path('front/images/PaymentProof');
+            $destinationPath = public_path('front/images');
 
             // Pastikan folder ada
             if (!file_exists($destinationPath)) {
