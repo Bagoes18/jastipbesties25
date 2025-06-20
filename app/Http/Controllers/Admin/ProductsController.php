@@ -349,4 +349,22 @@ class ProductsController extends Controller
         ProductsAttribute::where('id', $id)->delete();
         return redirect()->back()->with('success_message', 'Atribut Berhasil Dihapus!');
     }
+    public function truncateProduct()
+    {
+        // Nonaktifkan foreign key check jika perlu
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        Product::truncate();
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+
+        return redirect()->back()->with('success', 'Semua produk berhasil dihapus!');
+    }
+    public function truncateOrder()
+    {
+        // Nonaktifkan foreign key check jika perlu
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        Order::truncate();
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+
+        return redirect()->back()->with('success', 'Semua Order berhasil dihapus!');
+    }
 }

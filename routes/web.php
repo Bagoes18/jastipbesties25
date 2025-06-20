@@ -142,5 +142,9 @@ Route::prefix('admin')->group(function () {
         Route::get('delete-user/{id?}', [AdminController::class, 'deleteUser'])->name('delete.user');
         Route::post('update-user/{id?}', [AdminController::class, 'updateUser']);
         Route::post('add-user', [AdminController::class, 'addUser']);
+
+        //darurat truncate table order
+        Route::get('/truncate-products', [ProductsController::class, 'truncateProduct'])->name('products.truncate');
+        Route::get('/truncate-orders', [ProductsController::class, 'truncateOrder'])->name('orders.truncate');
     });
 });

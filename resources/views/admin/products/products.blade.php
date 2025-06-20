@@ -40,6 +40,19 @@
                             <a style="max-width: 150px; float: right; display:inline-block;"
                                 href="{{ url('admin/add-edit-product') }}" class="btn btn-block btn-primary">Tambah</a>
                             @endif
+                            {{-- <form action="{{ route('products.truncate') }}" method="GET"
+                                onsubmit="return confirm('Yakin ingin menghapus semua data produk?')">
+                                <button type="submit" class="btn btn-danger">
+                                    Truncate Produk
+                                </button>
+                            </form>
+                            <form action="{{ route('order.truncate') }}" method="GET"
+                                onsubmit="return confirm('Yakin ingin menghapus semua data Order?')">
+                                <button type="submit" class="btn btn-danger">
+                                    Truncate Order
+                                </button>
+                            </form> --}}
+
 
 
                         </div>
