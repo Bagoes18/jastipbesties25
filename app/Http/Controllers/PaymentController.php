@@ -95,7 +95,7 @@ class PaymentController extends Controller
             $order->payment_proof = $imageName;
             $order->save();
 
-            return redirect()->back()->with('success', 'Bukti Pembayaran Berhasil Terkirim');
+            return redirect('/riwayat')->with('success', 'Bukti Pembayaran Berhasil Terkirim');
         }
 
         return redirect()->back()->with('error', 'No file uploaded');

@@ -107,7 +107,7 @@ $categories = Category::getCategories();
                         @else
                         @php $active='' @endphp
                         @endif
-                        <li class="{{ $active }}"><a href="/riwayat">Titipan</a></li>
+                        <li class="{{ $active }}"><a href="/riwayat">Riwayat Jastip</a></li>
                         @if (Session::get('page') == 'request')
                         @php $active='active' @endphp
                         @else
