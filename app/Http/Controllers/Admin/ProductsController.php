@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Order;
 use App\Models\ProductsAttribute;
 use App\Models\ProductsImage;
 use Illuminate\Http\Request;
@@ -57,6 +58,7 @@ class ProductsController extends Controller
     {
         //Delete CMSPage
         Product::where('id', $id)->delete();
+        Order::where('product_id', $id)->delete();
         return redirect()->back()->with('success_message', 'Produk Berhasil Dihapus!');
     }
 
