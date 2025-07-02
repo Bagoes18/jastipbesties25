@@ -173,9 +173,9 @@ class ProductsController extends Controller
                 $product->is_featured = 'No';
             }
             if (!empty($data['is_bestseller'])) {
-                $product->is_featured = $data['is_bestseller'];
+                $product->is_bestseller = $data['is_bestseller'];
             } else {
-                $product->is_featured = 'No';
+                $product->is_bestseller = 'No';
             }
 
             $product->status = 1;
