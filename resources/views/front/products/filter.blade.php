@@ -1,10 +1,10 @@
 <div class="shop__sidebar">
-    <div class="shop__sidebar__search">
+    {{-- <div class="shop__sidebar__search">
         <form action="#">
             <input type="text" placeholder="Cari...">
             <button type="submit"><span class="icon_search"></span></button>
         </form>
-    </div>
+    </div> --}}
     <div class="shop__sidebar__accordion">
         <div class="accordion" id="accordionExample">
             <div class="card">
