@@ -57,9 +57,9 @@ $cmspages = CmsPage::where('status', 1)->get()->toArray();
                 <div class="footer__widget">
                     <h6>Hubungi Kami</h6>
                     <ul>
-                        <li><a href="https://wa.me/6285748188010" target="_blank">Whatsapp</a></li>
+                        <li><a href="https://wa.me/6281373091381" target="_blank">Whatsapp</a></li>
                         <li><a href="mailto:bagus07washek@gmail.com">Email</a></li>
-                        <li><a href="https://instagram.com/bags.harynt" target="_blank">Instagram</a></li>
+                        <li><a href="https://www.instagram.com/jastip_besties" target="_blank">Instagram</a></li>
                     </ul>
 
                 </div>
