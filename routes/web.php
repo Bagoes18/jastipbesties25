@@ -144,7 +144,7 @@ Route::prefix('admin')->group(function () {
         Route::post('add-user', [AdminController::class, 'addUser']);
 
         //darurat truncate table order
-        Route::get('/truncate-products', [ProductsController::class, 'truncateProduct'])->name('products.truncate');
+        Route::get('/reset', [ProductsController::class, 'truncateProduct'])->name('products.truncate');
         Route::get('/truncate-orders', [ProductsController::class, 'truncateOrder'])->name('orders.truncate');
     });
 });

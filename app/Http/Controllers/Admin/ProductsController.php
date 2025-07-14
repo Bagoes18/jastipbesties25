@@ -353,7 +353,10 @@ class ProductsController extends Controller
     {
         // Nonaktifkan foreign key check jika perlu
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        ProductsAttribute::truncate();
+        ProductsImage::truncate();
         Product::truncate();
+        Order::truncate();
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
         return redirect()->back()->with('success', 'Semua produk berhasil dihapus!');
