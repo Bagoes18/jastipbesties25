@@ -24,7 +24,7 @@
             </div>
         </div>
         <div class="row d-flex w-100 justify-content-center mt-5 mb-5">
-            <form action="{{ route('send.request') }}" method="POST" enctype="multipart/form-data"
+            <form action="{{ url('/request') }}" method="POST" enctype="multipart/form-data"
                 class="d-flex flex-column align-items-center gap-2 bg-light">
                 @csrf
                 <h4 class="mt-5">Request Product</h4>
