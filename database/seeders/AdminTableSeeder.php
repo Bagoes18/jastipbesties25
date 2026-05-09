@@ -2,10 +2,9 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Admin;
-use Hash;
+use Illuminate\Support\Facades\Hash;
 
 class AdminTableSeeder extends Seeder
 {
@@ -16,22 +15,26 @@ class AdminTableSeeder extends Seeder
     {
         $password = Hash::make('123456');
         $adminRecords = [
-            ['id'   => 2,
-             'name' => 'Bagus',
-             'type' => 'admin',
-             'mobile' => '085858676987',
-             'email' => 'bagus@gmail.com',
-             'password' => $password,
-             'image' => '',
-             'status' => 1],
-            ['id'   => 3,
-             'name' => 'Ridwan',
-             'type' => 'admin',
-             'mobile' => '0858586767678',
-             'email' => 'ridwan@gmail.com',
-             'password' => $password,
-             'image' => '',
-             'status' => 1],
+            [
+                'id'   => 2,
+                'name' => 'Bagus',
+                'type' => 'admin',
+                'mobile' => '085858676987',
+                'email' => 'bagus@gmail.com',
+                'password' => $password,
+                'image' => '',
+                'status' => 1,
+            ],
+            [
+                'id'   => 3,
+                'name' => 'Ridwan',
+                'type' => 'admin',
+                'mobile' => '0858586767678',
+                'email' => 'ridwan@gmail.com',
+                'password' => $password,
+                'image' => '',
+                'status' => 1,
+            ],
         ];
         Admin::insert($adminRecords);
     }

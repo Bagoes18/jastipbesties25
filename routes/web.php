@@ -2,8 +2,8 @@
 
 
 use App\Http\Controllers\Front\IndexController;
-use App\Models\CmsPage;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\CmsController;
 use App\Http\Controllers\Admin\CategoryController;
@@ -18,71 +18,33 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProfileController;
 use App\Models\Category;
 
-
-Route::get('/login', function () {
-    return view('auth.login');
-})->middleware('guest');
-
-Route::get('/register', function () {
-    return view('auth.register');
-})->middleware('guest');
-
-Route::get('/request', function () {
-    Session::put("page", 'request');
+Route::redirect('home', '/');
+Route::view('login', 'auth.login')->middleware('guest');
+Route::view('register', 'auth.register')->middleware('guest');
+Route::redirect('home', '/');
+Route::get('request', function () {
+    Session::put('page', 'request');
     return view('front.products.request');
 });
 
-Route::get('/home', function () {
-    return redirect('/');
-});
-
-Route::get('/keranjang', [OrderController::class, 'index'])->name('index.order')->middleware('auth');
-Route::post('/checkout', [OrderController::class, 'checkout'])->name('checkout.order')->middleware('auth');
-Route::post('/orderstore', [OrderController::class, 'store'])->name('store.order')->middleware('auth');
-Route::get('/deleteorder/{id}', [OrderController::class, 'delete'])->name('delete.order');
-Route::get('/riwayat', [OrderController::class, 'riwayat'])->name('riwayat.order')->middleware('auth');
-
-Route::get('/payment/{id}', [PaymentController::class, 'index'])->name('payment.order')->middleware('auth');
-Route::post('/payment/{id}', [PaymentController::class, 'store'])->name('payment.store')->middleware('auth');
-
-Route::post('/request', [ProductController::class, 'request'])->name('send.request')->middleware('auth');
-
+Route::get('keranjang', [OrderController::class, 'index'])->name('index.order')->middleware('auth');
+Route::post('checkout', [OrderController::class, 'checkout'])->name('checkout.order')->middleware('auth');
+Route::post('orderstore', [OrderController::class, 'store'])->name('store.order')->middleware('auth');
+Route::get('deleteorder/{id}', [OrderController::class, 'delete'])->name('delete.order');
+Route::get('riwayat', [OrderController::class, 'riwayat'])->name('riwayat.order')->middleware('auth');
+Route::get('payment/{id}', [PaymentController::class, 'index'])->name('payment.order')->middleware('auth');
+Route::post('payment/{id}', [PaymentController::class, 'store'])->name('payment.store')->middleware('auth');
+Route::post('request', [ProductController::class, 'request'])->name('send.request')->middleware('auth');
 Route::post('login', [AuthController::class, 'login'])->name('login')->middleware('guest');
 Route::post('register', [AuthController::class, 'register'])->name('register');
-Route::get('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
-
-Route::get('/profile', [ProfileController::class, 'index'])->name('profile')->middleware('auth');
-Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update')->middleware('auth');
-
-Route::get('/invoice/{checkout_id}/{user_id}', [OrderController::class, 'printInvoice'])->name('orders.invoice');
-Route::get('/page/{url}', [IndexController::class, 'cmspage'])->name('cms.page');
-
-
-
-
-Route::
-        namespace('App\Http\Controllers\Front')->group(function () {
-            Route::get('/', [IndexController::class, 'index'])->name('index');
-
-            $catUrls = Category::select('url')->where('status', 1)->get()->pluck('url');
-            foreach ($catUrls as $key => $url) {
-                Route::get($url, 'ProductController@listing');
-            }
-
-            // $cmsUrls = CmsPage::select('url')->where('status', 1)->get()->pluck('url');
-            // foreach ($cmsUrls as $key => $url) {
-            //     Route::get($url, 'IndexController@cmspages');
-            // }
-        
-            Route::get('product/{id}', 'ProductController@detail');
-            //search
-            Route::get('search-products', 'ProductController@listing');
-        });
-
+Route::get('logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
+Route::get('profile', [ProfileController::class, 'index'])->name('profile')->middleware('auth');
+Route::post('profile', [ProfileController::class, 'update'])->name('profile.update')->middleware('auth');
+Route::get('invoice/{checkout_id}/{user_id}', [OrderController::class, 'printInvoice'])->name('orders.invoice');
+Route::get('page/{url}', [IndexController::class, 'cmspage'])->name('cms.page');
 Route::prefix('admin')->group(function () {
     // Login routes
     Route::match(['get', 'post'], 'login', [AdminController::class, 'login'])->middleware(['guest:admin', 'prevent-back-history']);
-
     Route::middleware(['admin'])->group(function () {
         // Admin account
         Route::get('dashboard', [AdminController::class, 'dashboard']);
@@ -144,7 +106,19 @@ Route::prefix('admin')->group(function () {
         Route::post('add-user', [AdminController::class, 'addUser']);
 
         //darurat truncate table order
-        Route::get('/reset', [ProductsController::class, 'truncateProduct'])->name('products.truncate');
-        Route::get('/truncate-orders', [ProductsController::class, 'truncateOrder'])->name('orders.truncate');
+        Route::get('reset', [ProductsController::class, 'truncateProduct'])->name('products.truncate');
+        Route::get('truncate-orders', [ProductsController::class, 'truncateOrder'])->name('orders.truncate');
     });
+});
+
+Route::namespace('App\Http\Controllers\Front')->group(function () {
+    Route::get('/', [IndexController::class, 'index'])->name('index');
+    Route::get('/{any}', function($any) {
+        $category = Category::where('url', $any)->where('status', 1)->first();
+        abort_if(!$category, 404);
+        return app()->make('App\Http\Controllers\Front\ProductController')->listing($any);
+    })->where('any', '.*');
+
+    Route::get('product/{id}', 'ProductController@detail');
+    Route::get('search-products', 'ProductController@listing');
 });
