@@ -27,7 +27,7 @@ class BannersController extends Controller
             $message = 'Fitur ini terbatas untuk Anda!';
             return redirect('admin/dashboard')->with('error_message', $message);
         } else {
-            $bannersModul = AdminsRole::where(['subadmin_id' => Auth::guard('admin')->user()->id, 'module' => 'banners'])->first()->toArray();
+            $bannersModul = optional(AdminsRole::where(['subadmin_id' => Auth::guard('admin')->user()->id, 'module' => 'banners'])->first())->toArray() ?? [];
         }
         return view('admin.banners.banners', compact('banners', 'bannersModul'));
     }

@@ -22,9 +22,9 @@ class PreventBackHistory
         $response->headers->set('Pragma', 'no-cache');
         $response->headers->set('Expires', 'Sat, 01 Jan 2000 00:00:00 GMT');
 
-        // Menambahkan X-Frame-Options dan no-referrer
+        // Menambahkan X-Frame-Options
         $response->headers->set('X-Frame-Options', 'DENY');
-        $response->headers->set('Referrer-Policy', 'no-referrer');
+        $response->headers->set('Referrer-Policy', 'strict-origin-when-cross-origin');
 
         return $response;
     }

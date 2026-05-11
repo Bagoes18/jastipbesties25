@@ -92,8 +92,10 @@ class PaymentController extends Controller
 
             // Simpan nama file ke database
             $order = Order::where('checkout_id', $id)->first();
-            $order->payment_proof = $imageName;
-            $order->save();
+            if ($order) {
+                $order->payment_proof = $imageName;
+                $order->save();
+            }
 
             return redirect('/riwayat')->with('success', 'Bukti Pembayaran Berhasil Terkirim');
         }

@@ -31,7 +31,7 @@ class CmsController extends Controller
             $message = 'Fitur ini terbatas untuk Anda!';
             return redirect('admin/dashboard')->with('error_message', $message);
         } else {
-            $pagesModul = AdminsRole::where(['subadmin_id' => Auth::guard('admin')->user()->id, 'module' => 'cms_pages'])->first()->toArray();
+            $pagesModul = optional(AdminsRole::where(['subadmin_id' => Auth::guard('admin')->user()->id, 'module' => 'cms_pages'])->first())->toArray() ?? [];
         }
 
         return view("admin.pages.cms_pages")->with(compact('CmsPages', 'pagesModul'));

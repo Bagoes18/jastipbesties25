@@ -4,10 +4,9 @@ namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
 use App\Models\Product;
-use Illuminate\Http\Request;
 use App\Models\Banner;
 use App\Models\CmsPage;
-use Session;
+use Illuminate\Support\Facades\Session;
 
 class IndexController extends Controller
 {

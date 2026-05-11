@@ -4,9 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Cart;
-use App\Models\Product;
-use Auth;
-use Session;
+use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
 {

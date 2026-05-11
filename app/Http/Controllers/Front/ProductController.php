@@ -9,9 +9,9 @@ use Illuminate\Support\Facades\Route;
 use App\Models\Category;
 use App\Models\Brand;
 use App\Models\RequestProduct;
-use PhpParser\Builder\Function_;
 use Intervention\Image\Facades\Image;
-use Session;
+use Illuminate\Support\Facades\Session;
+
 class ProductController extends Controller
 {
     // public function request(Request $request)
@@ -109,13 +109,15 @@ class ProductController extends Controller
         }
 
         $requests = new RequestProduct();
+        $requests->user_id = auth()->user()->id;
         $requests->name = $request->name;
         if ($imageName) {
             $requests->image = $imageName;
         }
+        $requests->status = 'pending';
         $requests->save();
 
-        return redirect()->back()->with('success', 'Request Berhasil dikirim');
+        return redirect()->back()->with('success_message', 'Request Berhasil dikirim');
     }
     public function listing()
     {

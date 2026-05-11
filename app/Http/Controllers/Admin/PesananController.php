@@ -30,11 +30,11 @@ class PesananController extends Controller
             $message = 'Fitur ini terbatas untuk Anda!';
             return redirect('admin/dashboard')->with('error_message', $message);
         } else {
-            $pesananModul = AdminsRole::where(['subadmin_id' => Auth::guard('admin')->user()->id, 'module' => 'pesanan'])->first()->toArray();
+            $pesananModul = optional(AdminsRole::where(['subadmin_id' => Auth::guard('admin')->user()->id, 'module' => 'pesanan'])->first())->toArray() ?? [];
         }
 
         $orders = Order::whereNotNull('status')
-            ->with('payment')
+            ->with('payment', 'user', 'product')
             ->get();
 
         // Group by checkout_id
@@ -82,10 +82,20 @@ class PesananController extends Controller
             $message = 'Fitur ini terbatas untuk Anda!';
             return redirect('admin/dashboard')->with('error_message', $message);
         } else {
-            $requestModule = AdminsRole::where(['subadmin_id' => Auth::guard('admin')->user()->id, 'module' => 'request'])->first()->toArray();
+            $requestModule = optional(AdminsRole::where(['subadmin_id' => Auth::guard('admin')->user()->id, 'module' => 'request'])->first())->toArray() ?? [];
         }
-        $request = RequestProduct::all();
+        $request = RequestProduct::with('user')->latest()->get();
         return view('admin.request', compact('request', 'requestModule'));
+    }
+
+    public function respondRequest(Request $requestHttp, $id)
+    {
+        $req = RequestProduct::findOrFail($id);
+        $req->status = $requestHttp->status;
+        $req->admin_response = $requestHttp->admin_response;
+        $req->save();
+
+        return redirect()->back()->with('success_message', 'Respon berhasil dikirim');
     }
 
     public function laporan()
@@ -101,7 +111,7 @@ class PesananController extends Controller
             $message = 'Fitur ini terbatas untuk Anda!';
             return redirect('admin/dashboard')->with('error_message', $message);
         } else {
-            $laporanModule = AdminsRole::where(['subadmin_id' => Auth::guard('admin')->user()->id, 'module' => 'laporan'])->first()->toArray();
+            $laporanModule = optional(AdminsRole::where(['subadmin_id' => Auth::guard('admin')->user()->id, 'module' => 'laporan'])->first())->toArray() ?? [];
         }
         $orders = Order::whereNotNull('status')
             ->with('payment', 'user', 'product')

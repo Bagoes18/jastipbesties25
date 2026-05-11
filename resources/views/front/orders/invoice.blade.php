@@ -79,9 +79,9 @@
         <tbody>
             @foreach ($orders as $order)
             <tr>
-                <td>{{ $order->product->product_name }}</td>
+                <td>{{ $order->product->product_name ?? 'Produk dihapus' }}</td>
                 <td>{{ $order->atribute->size ?? '-' }}</td>
-                <td>Rp {{ number_format($order->attribute->price ?? $order->product->final_price, 0, ',', '.') }}</td>
+                <td>Rp {{ number_format($order->atribute->price ?? $order->product->final_price ?? 0, 0, ',', '.') }}</td>
                 <td>{{ $order->qty }}</td>
                 <td>Rp {{ number_format($order->total, 0, ',', '.') }}</td>
             </tr>

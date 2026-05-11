@@ -29,9 +29,8 @@ class CategoryController extends Controller
             $message = 'Fitur ini terbatas untuk Anda!';
             return redirect('admin/dashboard')->with('error_message', $message);
         } else {
-            $categoriesModul = AdminsRole::where(['subadmin_id' => Auth::guard('admin')->user()->id, 'module' => 'categories'])->first()->toArray();
+            $categoriesModul = optional(AdminsRole::where(['subadmin_id' => Auth::guard('admin')->user()->id, 'module' => 'categories'])->first())->toArray() ?? [];
         }
-        // dd($categories);
         return view("admin.categories.categories", compact("categories", "categoriesModul"));
     }
 
@@ -139,20 +138,14 @@ class CategoryController extends Controller
 
     public function deleteCategoryImage($id)
     {
-        //get category image
         $categoryImage = Category::select('category_image')->where('id', $id)->first();
-
-        //get category image path
-        $category_image_path = 'front/images/categories/';
-        //delete category image dari folder public
-
-        if (file_exists($category_image_path . $categoryImage->category_image)) {
-            unlink($category_image_path . $categoryImage->category_image);
+        if ($categoryImage) {
+            $category_image_path = 'front/images/categories/';
+            if ($categoryImage->category_image && file_exists($category_image_path . $categoryImage->category_image)) {
+                unlink($category_image_path . $categoryImage->category_image);
+            }
+            Category::where('id', $id)->update(['category_image' => '']);
         }
-        //delete category image dari tabel
-        Category::where('id', $id)->update(['category_image' => '']);
-
         return redirect()->back()->with('success_message', 'Gambar Kategori berhasil terhapus!');
-
     }
 }

@@ -39,18 +39,19 @@
                             @php $subtotal = 0; @endphp
                             @forelse($cartItems as $item)
                             @php
-                            $productTotal = $item->product->final_price * $item->product_qty;
+                            $productPrice = $item->product->final_price ?? 0;
+                            $productTotal = $productPrice * $item->product_qty;
                             $subtotal += $productTotal;
                             @endphp
                             <tr data-cartid="{{ $item->id }}">
                                 <td class="product__cart__item">
                                     <div class="product__cart__item__pic">
-                                        <img src="{{ asset('front/images/products/small/'.$item->product->product_image) }}"
-                                            alt="{{ $item->product->product_name }}">
+                                        <img src="{{ $item->product ? asset('front/images/products/small/'.$item->product->product_image) : '' }}"
+                                            alt="{{ $item->product->product_name ?? 'Produk dihapus' }}">
                                     </div>
                                     <div class="product__cart__item__text">
-                                        <h6>{{ $item->product->product_name }}</h6>
-                                        <h5>Rp. {{ number_format($item->product->final_price, 0, ',', '.') }}</h5>
+                                        <h6>{{ $item->product->product_name ?? 'Produk dihapus' }}</h6>
+                                        <h5>Rp. {{ number_format($productPrice, 0, ',', '.') }}</h5>
                                         <p>Size: {{ $item->product_size }}</p>
                                     </div>
                                 </td>

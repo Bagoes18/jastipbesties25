@@ -13,9 +13,6 @@
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap"
         rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
-
     <!-- Css Styles -->
 
     <link rel="stylesheet" href="{{ asset('front/css/bootstrap.min.css') }}" type="text/css">
@@ -183,15 +180,6 @@
             });
         });
         
-    </script>
-    <script src="{{ asset('front/js/jquery.slicknav.min.js') }}"></script>
-    <script>
-        $(document).ready(function() {
-        $('.mobile-menu').slicknav({
-            prependTo: '#mobile-menu-wrap',
-            allowParentLinks: true
-        });
-    });
     </script>
 
 

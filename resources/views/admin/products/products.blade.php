@@ -77,7 +77,7 @@
                                         <td>{{ $product['product_name'] }}</td>
                                         <td>{{ $product['product_code'] }}</td>
                                         <td>{{ $product['product_color'] }}</td>
-                                        <td>{{ $product['category']['category_name'] }}</td>
+                                        <td>{{ $product['category']['category_name'] ?? '-' }}</td>
                                         <td>
                                             @if (isset($product['category']['parentcategory']['category_name']))
                                             {{ $product['category']['parentcategory']['category_name'] }}

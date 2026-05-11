@@ -71,12 +71,12 @@
                                         @foreach ($orderSummaries as $sum)
                                         <tr>
                                             <td>{{ $sum['orders'][0]->checkout_id }}</td>
-                                            <td>{{ $sum['orders'][0]->user->name }}</td>
+                                            <td>{{ $sum['orders'][0]->user->name ?? 'User tidak dikenal' }}</td>
                                             <td>{{ $sum['count'] }}</td>
                                             <td>
                                                 <ul>
                                                     @foreach ($sum['orders'] as $order)
-                                                    <li>{{ $order->product->product_name }}</li>
+                                                    <li>{{ $order->product->product_name ?? 'Produk dihapus' }}</li>
                                                     @endforeach
                                                 </ul>
 

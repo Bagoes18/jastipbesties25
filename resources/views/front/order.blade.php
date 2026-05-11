@@ -40,17 +40,17 @@
                         <tbody>
                             @foreach ($orders as $order)
                                 @php
-                                    $totalPerItem =
-                                        ($order->atribute->price ?? $order->product->final_price) * $order->qty;
+                                    $productPrice = $order->atribute->price ?? $order->product->final_price ?? 0;
+                                    $totalPerItem = $productPrice * $order->qty;
                                 @endphp
                                 <tr>
                                     <td>
                                         <input type="checkbox" name="order_id[]" value="{{ $order->id }}"
                                             class="item-checkbox" data-total="{{ $totalPerItem }}">
                                     </td>
-                                    <td>{{ $order->product->product_name }}</td>
+                                    <td>{{ $order->product->product_name ?? 'Produk dihapus' }}</td>
                                     <td>Rp
-                                        {{ number_format($order->atribute->price ?? $order->product->final_price, 0, ',', '.') }}
+                                        {{ number_format($productPrice, 0, ',', '.') }}
                                     </td>
                                     <td>{{ $order->qty }}</td>
                                     <td>{{ $order->atribute->size ?? '' }} {{ $order->atribute->color ?? '' }}</td>

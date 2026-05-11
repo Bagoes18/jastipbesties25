@@ -25,7 +25,7 @@ Route::redirect('home', '/');
 Route::get('request', function () {
     Session::put('page', 'request');
     return view('front.products.request');
-});
+})->middleware('auth');
 
 Route::get('keranjang', [OrderController::class, 'index'])->name('index.order')->middleware('auth');
 Route::post('checkout', [OrderController::class, 'checkout'])->name('checkout.order')->middleware('auth');
@@ -96,6 +96,7 @@ Route::prefix('admin')->group(function () {
         Route::get('payment/reject/{id}', [PesananController::class, 'rejectPayment'])->name('payment.reject');
         // Request
         Route::get('request', [PesananController::class, 'request']);
+        Route::post('request/respond/{id}', [PesananController::class, 'respondRequest']);
         //laporan
         Route::get('laporan', [PesananController::class, 'laporan']);
         Route::get('export', [PesananController::class, 'export'])->name('export');

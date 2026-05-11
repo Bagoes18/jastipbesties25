@@ -72,26 +72,37 @@ class Category extends Model
         $getCategoryDetails = Category::select('id', 'parent_id', 'category_name', 'url')
             ->with('subcategories')
             ->where('url', $url)
-            ->first()
-            ->toArray();
+            ->first();
+
+        if (!$getCategoryDetails) {
+            return [
+                'catIds' => [],
+                'getCategoryDetails' => [],
+                'breadcrumbs' => ''
+            ];
+        }
+
+        $getCategoryDetails = $getCategoryDetails->toArray();
 
         $catIds = [];
         $catIds[] = $getCategoryDetails['id'];
 
-        // Tambahkan semua subkategori rekursif
         $subIds = self::getAllSubcategoryIds($getCategoryDetails['id']);
         $catIds = array_merge($catIds, $subIds);
 
-        // Breadcrumbs
         if ($getCategoryDetails['parent_id'] == 0) {
             $breadcrumbs = '<a href="' . url($getCategoryDetails['url']) . '">' . $getCategoryDetails['category_name'] . '</a>';
         } else {
             $parentCategory = Category::select('category_name', 'url')
                 ->where('id', $getCategoryDetails['parent_id'])
-                ->first()
-                ->toArray();
+                ->first();
 
-            $breadcrumbs = '<a href="' . url($parentCategory['url']) . '">' . $parentCategory['category_name'] . '</a> <span>' . $getCategoryDetails['category_name'] . '</span>';
+            if ($parentCategory) {
+                $parentCategory = $parentCategory->toArray();
+                $breadcrumbs = '<a href="' . url($parentCategory['url']) . '">' . $parentCategory['category_name'] . '</a> <span>' . $getCategoryDetails['category_name'] . '</span>';
+            } else {
+                $breadcrumbs = '<span>' . $getCategoryDetails['category_name'] . '</span>';
+            }
         }
 
         return [

@@ -325,9 +325,12 @@ class AdminController extends Controller
 
         }
         $subadminRoles = AdminsRole::where('subadmin_id', $id)->get()->toArray();
-        $subadminDetails = Admin::where('id', $id)->first()->toArray();
+        $subadminDetails = Admin::where('id', $id)->first();
+        if (!$subadminDetails) {
+            return redirect('admin/subadmins')->with('error_message', 'Sub Admin tidak ditemukan!');
+        }
+        $subadminDetails = $subadminDetails->toArray();
         $title = "Perbarui " . $subadminDetails['name'] . " ( Peran/Izin Akses )";
-        // dd($subadminRoles);
         return view("admin.subadmins.update_roles")->with(compact("title", "id", "subadminRoles"));
     }
 

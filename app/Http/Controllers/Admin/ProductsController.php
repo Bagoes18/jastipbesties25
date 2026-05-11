@@ -35,7 +35,7 @@ class ProductsController extends Controller
             $message = 'Fitur ini terbatas untuk Anda!';
             return redirect('admin/dashboard')->with('error_message', $message);
         } else {
-            $productsModul = AdminsRole::where(['subadmin_id' => Auth::guard('admin')->user()->id, 'module' => 'products'])->first()->toArray();
+            $productsModul = optional(AdminsRole::where(['subadmin_id' => Auth::guard('admin')->user()->id, 'module' => 'products'])->first())->toArray() ?? [];
         }
 
         return view("admin.products.products", compact('products', 'productsModul'));
@@ -149,7 +149,10 @@ class ProductsController extends Controller
                 $product->final_price = $data['product_price'] - ($data['product_price'] * $data['product_discount']) / 100;
             } else {
                 $getCategoryDiscount = Category::select('category_discount')->where('id', $data['category_id'])->first();
-                if ($getCategoryDiscount->category_discount == 0) {
+                if ($getCategoryDiscount && $getCategoryDiscount->category_discount > 0) {
+                    $product->discount_type = 'category';
+                    $product->final_price = $data['product_price'] - ($data['product_price'] * $getCategoryDiscount->category_discount) / 100;
+                } else {
                     $product->discount_type = '';
                     $product->final_price = $data['product_price'];
                 }
@@ -294,13 +297,15 @@ class ProductsController extends Controller
     {
         $productVideo = Product::select('product_video')->where('id', $id)->first();
 
-        $product_video_path = 'front/videos/products/';
+        if ($productVideo) {
+            $product_video_path = 'front/videos/products/';
 
-        if (file_exists($product_video_path . $productVideo->product_video)) {
-            unlink($product_video_path . $productVideo->product_video);
+            if ($productVideo->product_video && file_exists($product_video_path . $productVideo->product_video)) {
+                unlink($product_video_path . $productVideo->product_video);
+            }
+
+            Product::where('id', $id)->update(['product_video' => '']);
         }
-
-        Product::where('id', $id)->update(['product_video' => '']);
 
         $message = 'Produk Video Berhasil dihapus!';
 
@@ -311,21 +316,23 @@ class ProductsController extends Controller
     {
         $productImage = ProductsImage::select('image')->where('id', $id)->first();
 
-        $small_image_path = 'front/images/products/small/';
-        $medium_image_path = 'front/images/products/medium/';
-        $large_image_path = 'front/images/products/large/';
+        if ($productImage) {
+            $small_image_path = 'front/images/products/small/';
+            $medium_image_path = 'front/images/products/medium/';
+            $large_image_path = 'front/images/products/large/';
 
-        if (file_exists($small_image_path . $productImage->image)) {
-            unlink($small_image_path . $productImage->image);
-        }
-        if (file_exists($medium_image_path . $productImage->image)) {
-            unlink($medium_image_path . $productImage->image);
-        }
-        if (file_exists($large_image_path . $productImage->image)) {
-            unlink($large_image_path . $productImage->image);
-        }
+            if ($productImage->image && file_exists($small_image_path . $productImage->image)) {
+                unlink($small_image_path . $productImage->image);
+            }
+            if ($productImage->image && file_exists($medium_image_path . $productImage->image)) {
+                unlink($medium_image_path . $productImage->image);
+            }
+            if ($productImage->image && file_exists($large_image_path . $productImage->image)) {
+                unlink($large_image_path . $productImage->image);
+            }
 
-        ProductsImage::where('id', $id)->delete();
+            ProductsImage::where('id', $id)->delete();
+        }
         $message = 'Gambar produk berhasil di hapus!';
 
         return redirect()->back()->with('success_message', $message);

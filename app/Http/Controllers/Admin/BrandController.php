@@ -31,7 +31,7 @@ class BrandController extends Controller
             $message = 'Fitur ini terbatas untuk Anda!';
             return redirect('admin/dashboard')->with('error_message', $message);
         } else {
-            $brandsModul = AdminsRole::where(['subadmin_id' => Auth::guard('admin')->user()->id, 'module' => 'brands'])->first()->toArray();
+            $brandsModul = optional(AdminsRole::where(['subadmin_id' => Auth::guard('admin')->user()->id, 'module' => 'brands'])->first())->toArray() ?? [];
         }
         return view('admin.brands.brands', compact('brands', 'brandsModul'));
     }

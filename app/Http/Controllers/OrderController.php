@@ -44,7 +44,7 @@ class OrderController extends Controller
                 $order->payment_id = $request->payment;
                 $order->status = 'pending';
 
-                $totalPerItem = ($order->atribute->price ?? $order->product->final_price) * $order->qty;
+                $totalPerItem = ($order->atribute->price ?? $order->product->final_price ?? 0) * $order->qty;
                 $order->total = $totalPerItem;
 
                 $order->save();
@@ -70,10 +70,13 @@ class OrderController extends Controller
         return redirect()->back();
     }
 
-    public function delete(Request $request)
+    public function delete(Request $request, $id = null)
     {
-        $order = Order::find($request->id);
-        $order->delete();
+        $orderId = $id ?? $request->id;
+        $order = Order::find($orderId);
+        if ($order) {
+            $order->delete();
+        }
         return redirect()->back();
     }
 
