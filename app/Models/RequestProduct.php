@@ -9,7 +9,7 @@ class RequestProduct extends Model
 {
     use HasFactory;
     protected $table = 'requests';
-    protected $fillable = ['name', 'image', 'user_id', 'status', 'admin_response'];
+    protected $fillable = ['reference', 'name', 'image', 'user_id', 'status', 'admin_response'];
 
     public function user()
     {

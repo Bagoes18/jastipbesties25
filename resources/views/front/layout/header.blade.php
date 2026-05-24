@@ -114,7 +114,6 @@ $categories = Category::getCategories();
                         @php $active='' @endphp
                         @endif
                         <li class="{{ $active }}"><a href="/request">Request Produk</a></li>
-
                     </ul>
                 </nav>
             </div>

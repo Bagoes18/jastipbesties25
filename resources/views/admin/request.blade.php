@@ -43,27 +43,29 @@
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-bordered table-striped bg-transparent">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">No</th>
-                                            <th scope="col">User</th>
-                                            <th scope="col">Nama Barang</th>
-                                            <th scope="col">Gambar</th>
-                                            <th scope="col">Status</th>
-                                            <th scope="col">Respon Admin</th>
-                                            <th scope="col">Aksi</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($request as $req)
-                                        <tr>
-                                            <td>{{ $loop->iteration }}</td>
-                                            <td>
-                                                {{ $req->user->name ?? 'User tidak dikenal' }}<br>
-                                                <small>{{ $req->user->email ?? '' }}</small>
-                                            </td>
-                                            <td>{{ $req->name }}</td>
+                                    <table class="table table-bordered table-striped bg-transparent">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">No</th>
+                                                <th scope="col">Referensi</th>
+                                                <th scope="col">User</th>
+                                                <th scope="col">Nama Barang</th>
+                                                <th scope="col">Gambar</th>
+                                                <th scope="col">Status</th>
+                                                <th scope="col">Respon Admin</th>
+                                                <th scope="col">Aksi</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($request as $req)
+                                            <tr>
+                                                <td>{{ $loop->iteration }}</td>
+                                                <td><code>{{ $req->reference ?? '-' }}</code></td>
+                                                <td>
+                                                    {{ $req->user->name ?? 'User tidak dikenal' }}<br>
+                                                    <small>{{ $req->user->email ?? '' }}</small>
+                                                </td>
+                                                <td>{{ $req->name }}</td>
                                             <td>
                                                 @if ($req->image)
                                                 <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"

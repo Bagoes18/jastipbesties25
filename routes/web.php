@@ -22,10 +22,9 @@ Route::redirect('home', '/');
 Route::view('login', 'auth.login')->middleware('guest');
 Route::view('register', 'auth.register')->middleware('guest');
 Route::redirect('home', '/');
-Route::get('request', function () {
-    Session::put('page', 'request');
-    return view('front.products.request');
-})->middleware('auth');
+
+Route::get('request', [ProductController::class, 'showRequestPage'])->name('request.page');
+Route::post('request', [ProductController::class, 'request'])->name('send.request');
 
 Route::get('keranjang', [OrderController::class, 'index'])->name('index.order')->middleware('auth');
 Route::post('checkout', [OrderController::class, 'checkout'])->name('checkout.order')->middleware('auth');
@@ -34,7 +33,6 @@ Route::get('deleteorder/{id}', [OrderController::class, 'delete'])->name('delete
 Route::get('riwayat', [OrderController::class, 'riwayat'])->name('riwayat.order')->middleware('auth');
 Route::get('payment/{id}', [PaymentController::class, 'index'])->name('payment.order')->middleware('auth');
 Route::post('payment/{id}', [PaymentController::class, 'store'])->name('payment.store')->middleware('auth');
-Route::post('request', [ProductController::class, 'request'])->name('send.request')->middleware('auth');
 Route::post('login', [AuthController::class, 'login'])->name('login')->middleware('guest');
 Route::post('register', [AuthController::class, 'register'])->name('register');
 Route::get('logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
